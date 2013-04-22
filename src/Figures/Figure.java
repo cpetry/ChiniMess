@@ -3,9 +3,15 @@ package Figures;
 import ChiniMess.Move;
 
 public abstract class Figure {
-    private boolean white;
-    private char figure;
+    protected boolean white;
+    protected char figure;
+    
+    Figure(boolean white){
+        this.white = white;
+    }
     
     public abstract boolean checkMove(Move m);
-    public abstract String toString();
+    public String toString(){
+        return this.figure + "";
+    }
 }

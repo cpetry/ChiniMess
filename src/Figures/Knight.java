@@ -4,16 +4,17 @@ import ChiniMess.Move;
 
 public class Knight extends Figure{
 
+    Knight(boolean white) {
+        super(white);
+        if (this.white)
+            this.figure = 'N';
+        else
+            this.figure = 'n';
+    }
+
     @Override
     public boolean checkMove(Move m) {
         // TODO Auto-generated method stub
         return false;
     }
-
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

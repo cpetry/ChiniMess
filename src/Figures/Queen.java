@@ -4,16 +4,18 @@ import ChiniMess.Move;
 
 public class Queen extends Figure{
 
+    Queen(boolean white) {
+        super(white);
+        if (this.white)
+            this.figure = 'Q';
+        else
+            this.figure = 'q';
+        // TODO Auto-generated constructor stub
+    }
+
     @Override
     public boolean checkMove(Move m) {
         // TODO Auto-generated method stub
         return false;
     }
-
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }
