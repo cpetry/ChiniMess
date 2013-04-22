@@ -43,7 +43,21 @@ public class Square {
 
 	public String toString(){
 		
-		return col+""+row;
+		char col;
+		
+		switch(this.col){
+		
+			
+			case 0 : col = 'a'; break; 
+			case 1 : col = 'b'; break; 
+			case 2 : col = 'c'; break; 
+			case 3 : col = 'd'; break; 
+			case 4 : col = 'e'; break; 
+			
+			default : col = 'z'; break; 
+		}
+		
+		return col+""+(row+1);
 	}
 	
 	@Override
