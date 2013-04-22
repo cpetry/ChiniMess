@@ -2,7 +2,7 @@ package ChiniMess;
 
 public class Square {
 
-	private int col, row;
+	public int col, row;
 	
 	
 	public Square(String koordinaten){
@@ -37,22 +37,6 @@ public class Square {
 		
 	}
 
-	public int getCol() {
-		return col;
-	}
-
-	public void setCol(int col) {
-		this.col = col;
-	}
-
-	public int getRow() {
-		return row;
-	}
-
-	public void setRow(int row) {
-		this.row = row;
-	}
-	
 	public String toString(){
 		
 		return col+""+row;
