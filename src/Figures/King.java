@@ -2,6 +2,10 @@ package Figures;
 
 import ChiniMess.Move;
 
+/**
+ * @class Bishop
+ * @author Christian Petry
+ */
 public class King extends Figure {
 
     @Override

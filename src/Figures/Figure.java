@@ -1,3 +1,5 @@
+copyright @ 2013 Christian Petry
+
 package Figures;
 
 import ChiniMess.Move;
