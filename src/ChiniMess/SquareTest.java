@@ -7,8 +7,11 @@ import org.junit.Test;
 public class SquareTest {
 
     @Test
-    public void test() {
-        assertEquals("should be equal", new Square(1,1), new Square(1,1));
+    public void equalConstructorTest() {
+        Square s1 = new Square("a1");
+        Square s2 = new Square(0, 0);
+        
+        assertEquals("should be equal", s1, s2);
         //fail("Not yet implemented");
     }
 
