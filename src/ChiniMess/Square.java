@@ -2,10 +2,7 @@ package ChiniMess;
 
 public class Square {
 
-	public int col, row;
-	
-	
-	
+	private int col, row;
 
     public Square(String koordinaten){
 		
@@ -60,6 +57,32 @@ public class Square {
 		return col+""+(row+1);
 	}
 	
+	
+	public int getCol() {
+		return col;
+	}
+
+	public void setCol(int col) {
+		this.col = col;
+	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public boolean isValid() {
+		
+		if(col!=-1 && row!=-1){
+			return true;
+		}
+		return false;
+	}
+
+
 	@Override
     public int hashCode() {
         final int prime = 31;
