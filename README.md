@@ -1,6 +1,8 @@
 copyright @ 2013 Christian Petry
 
-MiniChessAI-bbp
+ChiniMess
 ===============
 
 MiniChess project team Banck, Beckh, Petry
+
+Could result in a total **Mess**
