@@ -1,3 +1,5 @@
+copyright @ 2013 Christian Petry
+
 MiniChessAI-bbp
 ===============
 
