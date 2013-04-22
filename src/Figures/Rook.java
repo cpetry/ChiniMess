@@ -4,7 +4,7 @@ import ChiniMess.Move;
 
 public class Rook extends Figure{
 
-    Rook(boolean white, char figure) {
+    public Rook(boolean white) {
         super(white);
         if (this.white)
             this.figure = 'R';

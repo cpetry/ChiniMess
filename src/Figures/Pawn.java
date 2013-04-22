@@ -4,7 +4,7 @@ import ChiniMess.Move;
 
 public class Pawn extends Figure{
 
-    Pawn(boolean white) {
+    public Pawn(boolean white) {
         super(white);
         if (this.white)
             this.figure = 'P';

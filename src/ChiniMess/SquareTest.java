@@ -14,5 +14,11 @@ public class SquareTest {
         assertEquals("should be equal", s1, s2);
         //fail("Not yet implemented");
     }
+    
+    public void equalToString(){
+        Square s1 = new Square("a1");
+        
+        assertEquals(s1, "a1");
+    }
 
 }

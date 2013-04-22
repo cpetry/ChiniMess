@@ -6,7 +6,7 @@ public abstract class Figure {
     protected boolean white;
     protected char figure;
     
-    Figure(boolean white){
+    public Figure(boolean white){
         this.white = white;
     }
     

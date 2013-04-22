@@ -4,7 +4,7 @@ import ChiniMess.Move;
 
 public class King extends Figure {
 
-    King(boolean white) {
+    public King(boolean white) {
         super(white);
         if (white)
             this.figure = 'K';
