@@ -16,7 +16,8 @@ public class Square {
 			case 'c' : col = 2; 
 			case 'd' : col = 3; 
 			case 'e' : col = 4; 
-		
+			
+			default : col = -1;
 		}
 		switch(chararray[1]){
 		
@@ -27,6 +28,7 @@ public class Square {
 			case '5' : row = 4;
 			case '6' : row = 5;
 			
+			default : row = -1;
 		}
 	}
 	
