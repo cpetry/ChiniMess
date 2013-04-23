@@ -57,8 +57,135 @@ public class BoardTest{
 	public void validBoardInputTest() {
 		
 		dummyBoard = new Board();
-		String input = generateValidInput();
+		String input =    "22 B  \n"
+                        + "kqbnr\n"
+                        + "ppppp\n"
+                        + ".....\n"
+                        + ".....\n"
+                        + "PPPPP\n"
+                        + "RNBQK\n";
 		assertTrue(dummyBoard.checkAndSetBoardFromInput(input));
+		
+		// move is 0
+		input =   "0 B  \n"
+                + "kqbnr\n"
+                + "ppppp\n"
+                + ".....\n"
+                + ".....\n"
+                + "PPPPP\n"
+                + "RNBQK\n";
+		assertFalse(dummyBoard.checkAndSetBoardFromInput(input));
+		
+		// player is incorrect
+        input =   "0 F  \n"
+                + "kqbnr\n"
+                + "ppppp\n"
+                + ".....\n"
+                + ".....\n"
+                + "PPPPP\n"
+                + "RNBQK\n";
+        assertFalse(dummyBoard.checkAndSetBoardFromInput(input));
+		
+		// one pawn transformed into bishop
+        input =   "22 W \n"
+                + "kqbnr\n"
+                + "bpppp\n"
+                + ".....\n"
+                + ".....\n"
+                + "PPPPP\n"
+                + "RNBQK\n";
+        assertTrue(dummyBoard.checkAndSetBoardFromInput(input));
+        
+        // one pawn transformed into queen
+        input =   "22 W \n"
+                + "kqbnr\n"
+                + "ppppp\n"
+                + ".....\n"
+                + ".....\n"
+                + "PPQPP\n"
+                + "RNBQK\n";
+        assertTrue(dummyBoard.checkAndSetBoardFromInput(input));
+        
+        // one pawn transformed into knight
+        input =   "22 W \n"
+                + "kqbnr\n"
+                + "ppppp\n"
+                + ".....\n"
+                + ".....\n"
+                + "PPNPP\n"
+                + "RNBQK\n";
+        assertTrue(dummyBoard.checkAndSetBoardFromInput(input));
+        
+        // one pawn transformed into rook
+        input =   "22 W \n"
+                + "kqbnr\n"
+                + "ppppp\n"
+                + ".....\n"
+                + ".....\n"
+                + "PPRPP\n"
+                + "RNBQK\n";
+        assertTrue(dummyBoard.checkAndSetBoardFromInput(input));
+		
+		// too many figures (bishop)
+		input =   "22 W \n"
+                + "kqbnr\n"
+                + "ppppp\n"
+                + "b....\n"
+                + ".....\n"
+                + "PPPPP\n"
+                + "RNBQK\n";
+        assertFalse(dummyBoard.checkAndSetBoardFromInput(input));
+        
+        // too many figures (knight)
+        input =   "22 W \n"
+                + "kqbnr\n"
+                + "ppppp\n"
+                + "n....\n"
+                + ".....\n"
+                + "PPPPP\n"
+                + "RNBQK\n";
+        assertFalse(dummyBoard.checkAndSetBoardFromInput(input));
+        
+        // too many figures (queen)
+        input =   "22 W \n"
+                + "kqbnr\n"
+                + "ppppp\n"
+                + "q....\n"
+                + ".....\n"
+                + "PPPPP\n"
+                + "RNBQK\n";
+        assertFalse(dummyBoard.checkAndSetBoardFromInput(input));
+        
+        // too many figures (rook)
+        input =   "22 W \n"
+                + "kqbnr\n"
+                + "ppppp\n"
+                + "r....\n"
+                + ".....\n"
+                + "PPPPP\n"
+                + "RNBQK\n";
+        assertFalse(dummyBoard.checkAndSetBoardFromInput(input));
+        
+        // too many figures (king)
+        input =   "3 W  \n"
+                + "kqbkr\n"
+                + ".....\n"
+                + "ppppp\n"
+                + "PPPPP\n"
+                + ".....\n"
+                + "RNBQK\n";
+        assertFalse(dummyBoard.checkAndSetBoardFromInput(input));
+        
+        
+        // too many pawns
+        input =   "3 W  \n"
+                + "kqbnr\n"
+                + ".pp..\n"
+                + "ppppp\n"
+                + "PPPPP\n"
+                + ".....\n"
+                + "RNBQK\n";
+        assertFalse(dummyBoard.checkAndSetBoardFromInput(input));
 	}
 	
 	@Test
