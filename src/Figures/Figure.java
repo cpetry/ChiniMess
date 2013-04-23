@@ -7,6 +7,7 @@ public abstract class Figure {
     protected boolean white;
     protected char figure;
     protected boolean canJump;
+    protected int score;
     
     public Figure(boolean white){
         this.white = white;
@@ -47,6 +48,14 @@ public abstract class Figure {
      */
     public boolean getColor(){
         return this.white;
+    }
+    
+    /**
+     * @brief gets back the score for that figure
+     * @return int : score number
+     */
+    public int getScore(){
+        return this.score;
     }
     
     public String toString(){

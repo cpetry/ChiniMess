@@ -10,6 +10,7 @@ public class Bishop extends Figure{
             this.figure = 'B';
         else
             this.figure = 'b';
+        this.score = 300;
     }
 
     @Override

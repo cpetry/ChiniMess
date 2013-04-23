@@ -32,10 +32,15 @@ public class Square {
 	}
 	
 	public Square(int col, int row){
-		
-		this.col = col;
-		this.row = row;
-		
+		if (col > 4 || row > 5 ||
+		    col < 0 || row < 0){
+		    this.col = -1;
+		    this.row = -1;
+		}
+		else {
+		    this.col = col;
+		    this.row = row;
+		}
 	}
 
 	public String toString(){
@@ -81,9 +86,8 @@ public class Square {
 	 */
 	public boolean isValid() {
 		
-		if(col!=-1 && row!=-1){
-			return true;
-		}
+		if(col!=-1 && row!=-1)
+		        return true;
 		return false;
 	}
 
