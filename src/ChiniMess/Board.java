@@ -16,7 +16,9 @@ import Figures.*;
 
 public class Board {
     private final int WIDTH = 5, HEIGHT = 6;
-    private final int MAXMOVIES = 40; 
+    private final int MAXMOVES = 40; 
+    public static final boolean WHITE = true;
+    public static final boolean BLACK = false;
     
     private int moveNumber; 
     private boolean onMove; 
@@ -124,7 +126,7 @@ public class Board {
 		//check moves
 		try {
 			int turn = Integer.valueOf(inputTurn);
-			if (turn < MAXMOVIES  && turn > 0 ) {	//check if move is in range	
+			if (turn < MAXMOVES  && turn > 0 ) {	//check if move is in range	
 				this.moveNumber = turn; 				//set attribute to current turn_value
 				return true;							//return success
 			}
@@ -270,8 +272,8 @@ public class Board {
 			if(f != null && f.canExecuteMove(m) && (f.canJump() || true /*|| m.boardIsFree(this)*/)) {
 			    
 			    // if a Pawn gets to the other side -> make it a Queen
-			    if ( (f instanceof Pawn && f.getColor() == true && square_to.getRow() == 0)
-			      || (f instanceof Pawn && f.getColor() == true && square_to.getRow() == 0))
+			    if ( (f instanceof Pawn && f.getColor() == this.WHITE && square_to.getRow() == 0)
+			      || (f instanceof Pawn && f.getColor() == this.BLACK && square_to.getRow() == this.HEIGHT))
 			        f = new Queen(f.getColor());
 			    
 			    this.setFigureToField(square_to, f);
@@ -408,6 +410,51 @@ public class Board {
 			}
 		}
 		return possibleMoves;
+	}
+	
+	public int calculateScore(){
+        int score = 0;
+        for (int r = 0; r < 6; r++)
+            for (int c = 0; c < 5; c++){
+                Square s = new Square(c, r);
+                if (!s.isValid())
+                    throw new IllegalArgumentException("wrong square!");
+                Figure f = this.getFigureFromField(s);
+                
+                if (f == null) 
+                    score += 0;
+                else 
+                    score += f.getScore();
+            }
+        return score;
+    }
+    
+    public boolean gameOver(){
+        boolean white_lives = false, black_lives = false;
+        if (this.moveNumber >= this.MAXMOVES)
+            return true;
+        for (int r = 0; r < 6; r++)
+            for (int c = 0; c < 5; c++){
+                Square s = new Square(c, r);
+                if (!s.isValid())
+                    throw new IllegalArgumentException("wrong square!");
+                Figure f = this.getFigureFromField(s);
+                if (f != null){
+                    if (f.toString().equals("k"))
+                        black_lives = true;
+                    else if (f.toString().equals("K"))
+                        white_lives = true;
+                }
+            }
+        
+        if (black_lives && white_lives)
+            return false;
+        else
+            return true;
+    }
+	
+	public boolean getPlayerOnTurn(){
+	    return this.onMove;
 	}
 	
 }
