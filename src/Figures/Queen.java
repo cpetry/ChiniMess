@@ -21,7 +21,7 @@ public class Queen extends Figure{
         
         else if ((Math.abs(dr) >= 1 && dc == 0)                 // left and right
                 || (dr == 0 && Math.abs(dc) >= 1)               // up and down
-                || (Math.abs(dr) >= 1 && Math.abs(dc) >= 1))    // diagonal
+                || (Math.abs(dr) >= 1 && Math.abs(dc) >= 1 && Math.abs(dc) == Math.abs(dr)))    // diagonal
             return true;
         
         return false;

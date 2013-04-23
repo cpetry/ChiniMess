@@ -10,6 +10,7 @@ public class Knight extends Figure{
             this.figure = 'N';
         else
             this.figure = 'n';
+        this.canJump = true;
     }
 
     @Override
