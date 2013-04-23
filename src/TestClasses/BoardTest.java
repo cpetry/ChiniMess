@@ -1,4 +1,4 @@
-package ChiniMess;
+package TestClasses;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import org.junit.Test;
 
+import ChiniMess.Board;
+import ChiniMess.Square;
 import Figures.*;
 
 

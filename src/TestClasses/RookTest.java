@@ -1,8 +1,10 @@
-package Figures;
+package TestClasses;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import Figures.Rook;
 
 /**
  * @brief These are tests for the movement of figure.

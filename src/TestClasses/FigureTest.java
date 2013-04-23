@@ -1,10 +1,16 @@
-package Figures;
+package TestClasses;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import ChiniMess.Move;
+import Figures.Bishop;
+import Figures.King;
+import Figures.Knight;
+import Figures.Pawn;
+import Figures.Queen;
+import Figures.Rook;
 
 public class FigureTest {
 

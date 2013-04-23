@@ -1,8 +1,10 @@
-package ChiniMess;
+package TestClasses;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import ChiniMess.Square;
 
 public class SquareTest {
 
