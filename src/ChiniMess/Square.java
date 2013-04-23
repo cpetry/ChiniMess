@@ -74,6 +74,11 @@ public class Square {
 		this.row = row;
 	}
 
+	/**
+	 * 
+	 * @brief checks the given position (col, row) , if the are on the board
+	 * @return return ture if the are on the board, false if not
+	 */
 	public boolean isValid() {
 		
 		if(col!=-1 && row!=-1){

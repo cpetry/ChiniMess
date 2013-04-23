@@ -13,7 +13,12 @@ public class Move {
 		to		= new Square(chararray[2]+""+chararray[3]);
 		
 	}
-	
+	/**
+	 * 
+	 * @brief compare the position of "from" and "to" and checks the positions are on the board
+	 * 
+	 * @return return true, if the created Move has Squares in the board and "to" and "from" are not the same position, false if not
+	 */
 	public boolean IsValid(){
 		
 		if(from.isValid() && to.isValid() && from.toString().compareTo(to.toString()) != 0){ //ist from richtig, ist to richtig, sind die beiden String nicht gleich(nicht von a1 nach a1 laufen)
@@ -25,6 +30,8 @@ public class Move {
 	
 	public Square getFrom() {
 		return from;
+
+
 	}
 
 	public void setFrom(Square from) {
