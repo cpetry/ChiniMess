@@ -2,6 +2,8 @@ package ChiniMess;
 
 import java.util.ArrayList;
 
+import Players.RandomPlayer;
+
 public class Game {
 
     /**
@@ -11,13 +13,14 @@ public class Game {
         Board b = new Board(); // normal standard Board
         GameStatus status = GameStatus.GAME_RUNNING;
         System.out.println(b);
-        
+        RandomPlayer randPlayer1 = new RandomPlayer();
+        RandomPlayer randPlayer2 = new RandomPlayer();
         while(status == GameStatus.GAME_RUNNING){
             Move m;
             if (b.getPlayerOnTurn() == Board.WHITE)
-                m = randomPlayer(b);
+                m = randPlayer1.chooseMove(b);
             else //if (b.getPlayerOnTurn() == Board.BLACK)
-                m = randomPlayer(b);
+                m = randPlayer2.chooseMove(b);
             
             
             b.executeMove(m);
@@ -39,12 +42,7 @@ public class Game {
 
     }
     
-    
-    public static Move randomPlayer(Board b){
-        ArrayList<Move> moves = b.genMoves();
-        int rand = (int) (Math.random() * (moves.size() - 1));
-        return moves.get(rand);
-    }
+ 
     
     public static Move greedyPlayer(Board b){
         ArrayList<Move> moves = b.genMoves();
