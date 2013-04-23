@@ -16,7 +16,9 @@ import Figures.*;
 
 public class Board {
     private final int WIDTH = 5, HEIGHT = 6;
-    private final int MAXMOVIES = 40; 
+    private final int MAXMOVES = 40; 
+    public static final boolean WHITE = true;
+    public static final boolean BLACK = false;
     
     private int moveNumber; 
     private boolean onMove; 
@@ -126,7 +128,7 @@ public class Board {
 		//check moves
 		try {
 			int turn = Integer.valueOf(inputTurn);
-			if (turn < MAXMOVIES  && turn > 0 ) {	//check if move is in range	
+			if (turn < MAXMOVES  && turn > 0 ) {	//check if move is in range	
 				this.moveNumber = turn; 				//set attribute to current turn_value
 				return true;							//return success
 			}
@@ -254,28 +256,39 @@ public class Board {
 	}
 	
 	
-	
+	/**
+	 * @brief  Executes a move.
+	 *         checks if the move is valid. 
+	 *         changes current player and the perhaps number of moves.
+	 *                  
+	 * @param m
+	 * @return
+	 */
 	public boolean executeMove(Move m)  {
 		
-		int y_From = m.getFrom().getRow();
-		int x_From = m.getFrom().getCol();
-		
-		int y_To = m.getTo().getRow();
-		int x_To = m.getTo().getCol();
+		Square square_from = new Square(m.getFrom().getCol(), m.getFrom().getRow());
+		Square square_to   = new Square(m.getTo().getCol(),   m.getTo().getRow());
 		
 		if(m.IsValid()) {
-			
-			if(board.get(y_From * x_From + x_From) != null && y_To < HEIGHT && x_To < WIDTH) {
-					
-				
+		    Figure f = this.getFigureFromField(square_from);
+			if(f != null && f.canExecuteMove(m) && (f.canJump() || true /*|| m.boardIsFree(this)*/)) {
+			    
+			    // if a Pawn gets to the other side -> make it a Queen
+			    if ( (f instanceof Pawn && f.getColor() == this.WHITE && square_to.getRow() == 0)
+			      || (f instanceof Pawn && f.getColor() == this.BLACK && square_to.getRow() == this.HEIGHT))
+			        f = new Queen(f.getColor());
+			    
+			    this.setFigureToField(square_to, f);
+			    this.setFigureToField(square_from, null);
+			    
+			    this.onMove = !this.onMove;  // change current player
+			    if (this.onMove)             // white players turn again
+			        this.moveNumber++;
+			    return true;
 			}
-					
 		}
-		else 
-			return false;
 		
-		return true;
-		
+		return false;
 	}
 	
 	
@@ -363,12 +376,11 @@ public class Board {
 		for(int row = 0; row < HEIGHT; row++) {
 			for (int col = 0; col < WIDTH; col++) {
 				
-				Square fromSquare = new Square(row,col);
+				Square fromSquare = new Square(col, row);
 				Figure tmpFigure = getFigureFromField(fromSquare);
 				
 				if (tmpFigure != null && tmpFigure.getColor() == onMove) { //test for empty field and turn		
 					moves.addAll(simulateMoves(fromSquare));
-		
 				}
 			}
 		}
@@ -386,20 +398,69 @@ public class Board {
 		ArrayList<Move> possibleMoves = new ArrayList<Move>();
 		
 		for(int currentRow = 0; currentRow < HEIGHT; currentRow++) {
-			
 			for (int currentCol = 0; currentCol < WIDTH; currentCol++) {
 				
-				Square toSquare = new Square(currentRow,currentCol);
-				if (this.executeMove(new Move(fromSquare,toSquare))) {
-					possibleMoves.add(new Move(fromSquare,toSquare));
+				Square toSquare = new Square(currentCol, currentRow);
+				Figure toFigure   = getFigureFromField(toSquare);       // figure on destination square
+				Figure fromFigure = getFigureFromField(fromSquare);     // figure on start square
+				
+				if (toFigure == null || toFigure.getColor() != fromFigure.getColor()){     // free square or figure of other team?
+				    if (fromFigure.canExecuteMove(new Move(fromSquare, toSquare))) {       // can figure execute move?
+				        possibleMoves.add(new Move(fromSquare, toSquare));
+				    }
 				}
-					
 			}
 		}
-		
 		return possibleMoves;
-		
-		
+	}
+	
+	public int calculateScore(){
+        int score = 0;
+        for (int r = 0; r < 6; r++)
+            for (int c = 0; c < 5; c++){
+                Square s = new Square(c, r);
+                if (!s.isValid())
+                    throw new IllegalArgumentException("wrong square!");
+                Figure f = this.getFigureFromField(s);
+                
+                if (f == null) 
+                    score += 0;
+                else 
+                    score += f.getScore();
+            }
+        return score;
+    }
+    
+    public GameStatus gameOver(){
+        boolean white_lives = false, black_lives = false;
+        if (this.moveNumber >= this.MAXMOVES)
+            return GameStatus.GAME_DRAW;
+        for (int r = 0; r < 6; r++)
+            for (int c = 0; c < 5; c++){
+                Square s = new Square(c, r);
+                if (!s.isValid())
+                    throw new IllegalArgumentException("wrong square!");
+                Figure f = this.getFigureFromField(s);
+                if (f != null){
+                    if (f.toString().equals("k"))
+                        black_lives = true;
+                    else if (f.toString().equals("K"))
+                        white_lives = true;
+                }
+            }
+        
+        if (black_lives && white_lives)
+            return GameStatus.GAME_RUNNING;
+        else if (black_lives)
+            return GameStatus.GAME_BLACKWINS;
+        else if (white_lives)
+            return GameStatus.GAME_WHITEWINS;
+        else
+            return GameStatus.GAME_DRAW;     // shouldn't be possible!
+    }
+	
+	public boolean getPlayerOnTurn(){
+	    return this.onMove;
 	}
 	
 	
