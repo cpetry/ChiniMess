@@ -24,7 +24,7 @@ public class Game {
             status = b.gameOver();
             System.out.println(b);
             System.out.println("picked Move:" + m);
-            System.out.println("Score: " + b.calculateScore());
+            System.out.println("Score: " + b.calculateScore() + "Moves: " + b.getMoveNumber());
         }
         
         // Determine the winning player

@@ -460,5 +460,8 @@ public class Board {
 	public boolean getPlayerOnTurn(){
 	    return this.onMove;
 	}
-	
+
+	public int getMoveNumber(){
+	    return this.moveNumber;
+	}
 }
