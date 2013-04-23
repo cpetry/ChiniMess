@@ -51,6 +51,20 @@ public class SquareTest {
         assertFalse(new Square("g4").isValid());
         assertFalse(new Square("14").isValid());
         assertFalse(new Square("ab").isValid());
+        
+        assertTrue(new Square( 0, 5).isValid());
+        assertTrue(new Square( 1, 4).isValid());
+        assertTrue(new Square( 4, 2).isValid());
+        assertTrue(new Square( 2, 1).isValid());
+        assertTrue(new Square( 3, 0).isValid());
+        
+        assertFalse(new Square( 5, 5).isValid());
+        assertFalse(new Square( 1, 9).isValid());
+        assertFalse(new Square(-1, 3).isValid());
+        assertFalse(new Square(-5, 2).isValid());
+        assertFalse(new Square( 8, 4).isValid());
+        
+        
     }
 
 }

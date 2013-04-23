@@ -10,6 +10,7 @@ public class Rook extends Figure{
             this.figure = 'R';
         else
             this.figure = 'r';
+        this.score = 500;
     }
 
     @Override

@@ -11,7 +11,7 @@ public class Queen extends Figure{
             this.figure = 'Q';
         else
             this.figure = 'q';
-        // TODO Auto-generated constructor stub
+        this.score = 900;
     }
 
     @Override

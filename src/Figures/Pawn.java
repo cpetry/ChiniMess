@@ -8,6 +8,7 @@ public class Pawn extends Figure{
             this.figure = 'P';
         else
             this.figure = 'p';
+        this.score = 100;
     }
 
     @Override

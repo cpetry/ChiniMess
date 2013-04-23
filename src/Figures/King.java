@@ -10,7 +10,7 @@ public class King extends Figure {
             this.figure = 'K';
         else
             this.figure = 'k';
-        // TODO Auto-generated constructor stub
+        this.score = 10000;
     }
 
     @Override
