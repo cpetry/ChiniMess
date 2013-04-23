@@ -9,20 +9,33 @@ public class Game {
      */
     public static void main(String[] args) {
         Board b = new Board(); // normal standard Board
+        GameStatus status = GameStatus.GAME_RUNNING;
         System.out.println(b);
-        while(!b.gameOver()){
+        
+        while(status == GameStatus.GAME_RUNNING){
             Move m;
             if (b.getPlayerOnTurn() == Board.BLACK)
-                m = greedyPlayer(b);
+                m = randomPlayer(b);
             else //if (b.getPlayerOnTurn() == Board.BLACK)
                 m = randomPlayer(b);
             
-            System.out.println("picked Move:" + m);
+            
             b.executeMove(m);
+            status = b.gameOver();
             System.out.println(b);
-            System.out.println(b.calculateScore());
+            System.out.println("picked Move:" + m);
+            System.out.println("Score: " + b.calculateScore());
         }
-        System.out.println(b);
+        
+        // Determine the winning player
+        if (status == GameStatus.GAME_WHITEWINS)
+            System.out.println("White wins!");
+        
+        else if (status == GameStatus.GAME_BLACKWINS)
+            System.out.println("Black wins!");
+        
+        else
+            System.out.println("Draw!");
 
     }
     

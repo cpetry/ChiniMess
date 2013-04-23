@@ -429,10 +429,10 @@ public class Board {
         return score;
     }
     
-    public boolean gameOver(){
+    public GameStatus gameOver(){
         boolean white_lives = false, black_lives = false;
         if (this.moveNumber >= this.MAXMOVES)
-            return true;
+            return GameStatus.GAME_DRAW;
         for (int r = 0; r < 6; r++)
             for (int c = 0; c < 5; c++){
                 Square s = new Square(c, r);
@@ -448,9 +448,13 @@ public class Board {
             }
         
         if (black_lives && white_lives)
-            return false;
+            return GameStatus.GAME_RUNNING;
+        else if (black_lives)
+            return GameStatus.GAME_BLACKWINS;
+        else if (white_lives)
+            return GameStatus.GAME_WHITEWINS;
         else
-            return true;
+            return GameStatus.GAME_DRAW;     // shouldn't be possible!
     }
 	
 	public boolean getPlayerOnTurn(){
