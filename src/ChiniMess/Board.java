@@ -5,6 +5,8 @@ package ChiniMess;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import Figures.*;
@@ -19,6 +21,9 @@ public class Board {
     
     ArrayList<Figure> board = new ArrayList<Figure>();
 
+    /**
+     * @brief init board with default values and positions
+     */
     public Board() {
     	moveNumber = 1; 			 // first move is one
     	onMove = true;  			 //white gets first 		
@@ -27,31 +32,42 @@ public class Board {
     	
     }
     
+    /**
+     * @brief set board from String-Input; set default if Input is not valid
+     * @param boardInput
+     */
 	public Board(String boardInput) {
-		this();
+		
     	if (checkAndSetBoardFromInput(boardInput) == false) { //check and set input
+    		moveNumber = 1; 								  //white gets first
+        	onMove = true; 									  // first move is one
+    		initEmptyBoard(); 	
     		initDefaultFigurePosition(); 					  //set start positions if input is rubbish!
-    		moveNumber = 1; 								  // first move is one
-        	onMove = true;  								  //white gets first 
+    		 								  
     	}
 	}
 	
-	public Board(BufferedReader  bf) throws IOException { // don't forget ExceptionHandling!
-		this();
+	
+	public Board(InputStream inputStream) throws IOException { // don't forget ExceptionHandling!
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 		String strLine; // buffer for current line
-		String inputStream = "";
+		String input = "";
 				
-		while ((strLine = bf.readLine()) != null)   { //Read File Line By Line
-			inputStream += strLine;
+		while ((strLine = br.readLine()) != null)   { //Read File Line By Line
+			input += strLine;
 		}
-		if (checkAndSetBoardFromInput(inputStream) == false) { //check and set input
-    		initDefaultFigurePosition(); 					   //set start positions if input is rubbish!
+		if (checkAndSetBoardFromInput(input) == false) { //check and set input
+			initEmptyBoard(); 
+			initDefaultFigurePosition(); 					   //set start positions if input is rubbish!
     		moveNumber = 1; 							       // first move is one
         	onMove = true;  								   //white gets first 
     	}
 	}
 	
-	
+	/**
+	 * @brief init the ArrayList with null-values
+	 */
 	private void initEmptyBoard() {
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 				this.board.add(null); //put an empty figure in each cell
@@ -60,7 +76,10 @@ public class Board {
 	}
 	
 	
-	
+	/**
+	 * @brief get String from current Board_parameters
+	 * @return String
+	 */
 	public String toString() {
 		String outputString = "";
 			
@@ -91,7 +110,11 @@ public class Board {
 	}
 	
 	
-	
+	/**
+	 * @brief 
+	 * @param inputMove
+	 * @return boolean
+	 */
 	public boolean checkAndSetMoves(String inputMove) {
 		//check moves
 		try {
@@ -130,9 +153,7 @@ public class Board {
 	}
 	
 	public boolean checkAndSetBoardFromInput(String input) {
-		
-		boolean boolShit; 
-		boolShit = true;
+
 		
 		//init StringTokenizer -> remove spaces
 		String tokens [] = input.split("[ \t\n]+"); //split by regular expression
@@ -209,21 +230,31 @@ public class Board {
 		
 	}
 	
-	public boolean setFigureToField(Figure inputFigure, Square inputSquare) {
+	
+	
+	public boolean executeMove(Move m)  {
 		
-
-		for (int i = 0; i < board.size(); i++) {
-			if (board.get(i).equals(inputFigure) && inputSquare.isValid()) { //TODO: check for possible moves
-												 //&& inputFigure.checkMove(
-												//		 new Move("" + i % WIDTH + i / HEIGHT +  
-														 	   //  + inputSquare.getCol() + inputSquare.getRow()))) {
-				board.set((1 + inputSquare.getRow()) * inputSquare.getCol(), inputFigure); //set figure on board -> remember offset
-				board.set(i,null); //fromSquare is empty, now!
-				return true; 	   // return true by success
+		int y_From = m.getFrom().getRow();
+		int x_From = m.getFrom().getCol();
+		
+		int y_To = m.getTo().getRow();
+		int x_To = m.getTo().getCol();
+		
+		if(m.IsValid()) {
+			
+			if(board.get(y_From * x_From + x_From) != null && y_To < HEIGHT && x_To < WIDTH) {
+					
+				
 			}
+					
 		}
-		return false; // BAM!
+		else 
+			return false;
+		
+		return true;
+		
 	}
+	
 	
 	public Figure getFigureFromField(Square inputSquare) {
 		if (inputSquare.isValid()) {
@@ -246,7 +277,7 @@ public class Board {
 		
 		int offset = 0;
 		
-		//set figures for white 
+		//set figures for black 
 		board.set(0, new King(false)); 
 		board.set(1, new Queen(false));
 		board.set(2, new Bishop(false));
@@ -254,12 +285,12 @@ public class Board {
 		board.set(4, new Rook(false));
 
 		
-		//set pawns for white
+		//set pawns for black
 		for (int i = WIDTH; i < 2 * WIDTH; i++) {
 			board.set(i, new Pawn(false));
 		}
 
-		//set figures for black
+		//set figures for white
 		offset = WIDTH * HEIGHT - 1;
 		board.set(offset - 0, new King(true)); 
 		board.set(offset - 1, new Queen(true));
@@ -268,11 +299,13 @@ public class Board {
 		board.set(offset - 4, new Rook(true));
 		
 		offset = WIDTH * HEIGHT;
-		//set pawn for black
+		//set pawn for white
 		for (int i = offset - 2 * WIDTH; i < offset - WIDTH; i++) {
 			board.set(i, new Pawn(true));
 		}
 			
 	}
+	
+	
 	
 }

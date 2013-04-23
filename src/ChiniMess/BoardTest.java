@@ -80,23 +80,6 @@ public class BoardTest{
 		assertEquals("should be equal",false,false); //TODO: @useful testCase
 	}
 	
-	@Test
-	public void testPositionChange() {
-		dummyBoard = new Board(); //init standard-positions
-		Square fromSquare = new Square("b1");
-		Square toSquare = new Square("c5");
-		boolean valid = false;
-		
-		Figure inputFigure = dummyBoard.getFigureFromField(fromSquare);
-		
-		dummyBoard.setFigureToField(inputFigure, toSquare);
-		
-		if (dummyBoard.getFigureFromField(toSquare).equals(inputFigure)) {
-			valid = true;
-		}
-		assertEquals("should be equal",valid,true); 
-	}
-	
 	
 	//helper_methods
 	public String generateValidInput() {
