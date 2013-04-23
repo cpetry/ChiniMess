@@ -2,15 +2,13 @@ package ChiniMess;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStream;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import org.junit.Test;
 
 import Figures.*;
+
 
 public class BoardTest{
 	
@@ -35,22 +33,23 @@ public class BoardTest{
 	}
 	
 	@Test
-	public void validCurrentMoveTest() {
+	public void validTurnTest() {
 		dummyBoard = new Board ();
-		assertTrue(dummyBoard.checkAndSetMoves("22"));
-		assertTrue(dummyBoard.checkAndSetMoves("1"));
-		assertTrue(dummyBoard.checkAndSetMoves("14"));
-		assertTrue(dummyBoard.checkAndSetMoves("35"));
+		assertTrue(dummyBoard.checkAndSetCurrentTurn("22"));
+		assertTrue(dummyBoard.checkAndSetCurrentTurn("1"));
+		assertTrue(dummyBoard.checkAndSetCurrentTurn("14"));
+		assertTrue(dummyBoard.checkAndSetCurrentTurn("35"));
 	}
 	
 	@Test
-	public void invalidCurrentMoveTest() {
+	public void invalidTurnTest() {
 		dummyBoard = new Board ();
-		assertFalse(dummyBoard.checkAndSetMoves("2dd2"));
-		assertFalse(dummyBoard.checkAndSetMoves("44")); // too high! max moves is 40!
-		assertFalse(dummyBoard.checkAndSetMoves("0"));  // too low ! first move is 1!
-		assertFalse(dummyBoard.checkAndSetMoves("-2"));
-		assertFalse(dummyBoard.checkAndSetMoves("a"));
+
+		assertFalse(dummyBoard.checkAndSetCurrentTurn("2dd2"));
+		assertFalse(dummyBoard.checkAndSetCurrentTurn("44")); // too high! max moves is 40!
+		assertFalse(dummyBoard.checkAndSetCurrentTurn("0"));  // too low ! first move is 1!
+		assertFalse(dummyBoard.checkAndSetCurrentTurn("-2"));
+		assertFalse(dummyBoard.checkAndSetCurrentTurn("a"));
 	}
 	
 	@Test
@@ -272,7 +271,7 @@ public class BoardTest{
 							+ "RNBQK\n";
 		return outputString;
 	}
-	
+
 	public String generateInitPositions() {
 		String outputString =     "1 W  \n"
 								+ "kqbnr\n" 

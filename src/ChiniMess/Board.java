@@ -120,12 +120,12 @@ public class Board {
 	 * @param inputMove
 	 * @return move could be set
 	 */
-	public boolean checkAndSetMoves(String inputMove) {
+	public boolean checkAndSetCurrentTurn(String inputTurn) {
 		//check moves
 		try {
-			int moves = Integer.valueOf(inputMove);
-			if (moves < MAXMOVIES  && moves > 0 ) {	//check if move is in range	
-				this.moveNumber = moves; 				//set attribute to current move_value
+			int turn = Integer.valueOf(inputTurn);
+			if (turn < MAXMOVIES  && turn > 0 ) {	//check if move is in range	
+				this.moveNumber = turn; 				//set attribute to current turn_value
 				return true;							//return success
 			}
 			return false;								//BAM!
@@ -173,7 +173,7 @@ public class Board {
 		
 		//init StringTokenizer -> remove spaces
 		String tokens [] = input.split("[ \t\n]+"); //split by regular expression
-		if (tokens[0] != null && this.checkAndSetMoves(tokens[0]) == false)	//first part of the String has to be the move_value
+		if (tokens[0] != null && this.checkAndSetCurrentTurn(tokens[0]) == false)	//first part of the String has to be the move_value
 				return false;	
 		
 		if (tokens[1] != null && this.checkAndSetColor(tokens[1]) == false) 
@@ -343,6 +343,53 @@ public class Board {
 			
 	}
 	
+	/**
+	 * @brief get possible moves for all valid figures
+	 * @return possible moves for all figures of the current player
+	 */
+	public ArrayList<Move> genMoves() {
+			
+		ArrayList<Move> moves = new ArrayList<Move>();
+		for(int row = 0; row < HEIGHT; row++) {
+			for (int col = 0; col < WIDTH; col++) {
+				
+				Square fromSquare = new Square(row,col);
+				Figure tmpFigure = getFigureFromField(fromSquare);
+				
+				if (tmpFigure != null && tmpFigure.getColor() == onMove) { //test for empty field and turn		
+					moves.addAll(simulateMoves(fromSquare));
+		
+				}
+			}
+		}
+		return moves;
+			
+	}
 	
+	/**
+	 * @brief get possible moves for a valid figure
+	 * @param fromSquare
+	 * @return possible moves for figure on "fromSquare" field
+	 */
+	public ArrayList<Move> simulateMoves(Square fromSquare) {
+		
+		ArrayList<Move> possibleMoves = new ArrayList<Move>();
+		
+		for(int currentRow = 0; currentRow < HEIGHT; currentRow++) {
+			
+			for (int currentCol = 0; currentCol < WIDTH; currentCol++) {
+				
+				Square toSquare = new Square(currentRow,currentCol);
+				if (this.executeMove(new Move(fromSquare,toSquare))) {
+					possibleMoves.add(new Move(fromSquare,toSquare));
+				}
+					
+			}
+		}
+		
+		return possibleMoves;
+		
+		
+	}
 	
 }
