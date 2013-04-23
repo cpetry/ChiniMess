@@ -39,7 +39,7 @@ public class Board {
      * @param boardInput
      */
 	public Board(String boardInput) {
-		
+		initEmptyBoard(); 	
     	if (checkAndSetBoardFromInput(boardInput) == false) { //check and set input
     		moveNumber = 1; 								  //white gets first
         	onMove = true; 									  // first move is one
@@ -58,8 +58,10 @@ public class Board {
 		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 		String strLine; // buffer for current line
 		String input = "";
-				
-		while ((strLine = br.readLine()) != null)   { //Read File Line By Line
+		
+		initEmptyBoard(); 	
+		
+		while ((strLine = br.readLine()) != null)   { //Read Line By Line
 			input += strLine;
 		}
 		if (checkAndSetBoardFromInput(input) == false) { //check and set input
@@ -169,8 +171,7 @@ public class Board {
 	 * @return
 	 */
 	public boolean checkAndSetBoardFromInput(String input) {
-
-		
+	
 		//init StringTokenizer -> remove spaces
 		String tokens [] = input.split("[ \t\n]+"); //split by regular expression
 		if (tokens[0] != null && this.checkAndSetCurrentTurn(tokens[0]) == false)	//first part of the String has to be the move_value
@@ -195,7 +196,8 @@ public class Board {
 			}
 			return true;
 		}
-		return false;
+		else 
+			return false;
 		
 	}
 	
@@ -399,5 +401,7 @@ public class Board {
 		
 		
 	}
+	
+	
 	
 }
