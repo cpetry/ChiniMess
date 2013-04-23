@@ -35,6 +35,14 @@ public abstract class Figure {
             return false;
     }
     
+    /**
+     * @brief gets back the color of the figure
+     * @return boolean : true if white, false if black
+     */
+    public boolean getColor(){
+        return this.white;
+    }
+    
     public String toString(){
         return this.figure + "";
     }
