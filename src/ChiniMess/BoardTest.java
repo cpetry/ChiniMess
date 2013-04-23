@@ -3,8 +3,10 @@ package ChiniMess;
 import static org.junit.Assert.*;
 
 import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.junit.Test;
 
@@ -71,7 +73,7 @@ public class BoardTest{
 	public void testOutputStream() {
 		dummyBoard = new Board();
 		try {
-			dummyBoard.print(new BufferedWriter(new FileWriter("output.txt")));
+			dummyBoard.print(new FileOutputStream("output.txt"));
 			
 		} 
 		catch (IOException ex) {
