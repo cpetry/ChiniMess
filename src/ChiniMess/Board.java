@@ -7,6 +7,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import Figures.*;
@@ -47,7 +49,10 @@ public class Board {
     	}
 	}
 	
-	
+	/**
+     * @brief set board from InputStream; set default if Input is not valid
+     * @param boardInput
+     */
 	public Board(InputStream inputStream) throws IOException { // don't forget ExceptionHandling!
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
@@ -66,7 +71,7 @@ public class Board {
 	}
 	
 	/**
-	 * @brief init the ArrayList with null-values
+	 * @brief init empty board
 	 */
 	private void initEmptyBoard() {
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
@@ -77,8 +82,8 @@ public class Board {
 	
 	
 	/**
-	 * @brief get String from current Board_parameters
-	 * @return String
+	 * @brief get String from current Board parameters
+	 * @return String of the Board
 	 */
 	public String toString() {
 		String outputString = "";
@@ -111,9 +116,9 @@ public class Board {
 	
 	
 	/**
-	 * @brief 
+	 * @brief checks and set the current turn parameter from inputString
 	 * @param inputMove
-	 * @return boolean
+	 * @return move could be set
 	 */
 	public boolean checkAndSetMoves(String inputMove) {
 		//check moves
@@ -133,6 +138,12 @@ public class Board {
 		}
 		
 	}
+	
+	/**
+	 * @brief check if color is black or white from input string
+	 * @param input
+	 * @return color is valid
+	 */
 	public boolean checkAndSetColor(String input) {
 		
 		
@@ -152,6 +163,11 @@ public class Board {
 		
 	}
 	
+	/**
+	 * @brief check string for valid board parameters; set values if possible
+	 * @param input
+	 * @return
+	 */
 	public boolean checkAndSetBoardFromInput(String input) {
 
 		
@@ -184,6 +200,12 @@ public class Board {
 		
 	}
 	
+	/**
+	 * @brief init. figure with char c at position index on the board
+	 * @param c
+	 * @param index
+	 * @return true, if figure on index with char could be set
+	 */
 	public boolean validateAndSetCurrentFigure(char c, int index) {
 		boolean isWhite = false; 
 		boolean possible = true; // return_value
@@ -256,6 +278,11 @@ public class Board {
 	}
 	
 	
+	/**
+	 * @brief get current figure from inputSquare
+	 * @param inputSquare
+	 * @return figure at square-position; null if empty
+	 */
 	public Figure getFigureFromField(Square inputSquare) {
 		if (inputSquare.isValid()) {
 			return board.get((1 + inputSquare.getRow()) * inputSquare.getCol()); //get Figure from Square
@@ -264,7 +291,14 @@ public class Board {
 		return null;
 	}
 	
-	public void print(BufferedWriter bw) throws IOException { //BAM-> ExceptionHandling outside the class!
+	/**
+	 * @brief write output values with current board parameters
+	 * @param outputStream
+	 * @throws IOException
+	 */
+	public void print(OutputStream outputStream) throws IOException { //BAM-> ExceptionHandling outside the class!
+		
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 		String output [] = this.toString().split("\n"); //BufferedWriter ignores '\n'
 		for (String line: output) {
 			bw.write(line); //write board to file
@@ -273,6 +307,9 @@ public class Board {
 		bw.close(); //close stream
 	}
 	
+	/**
+	 * @brief set starting positions
+	 */
 	private void  initDefaultFigurePosition() {
 		
 		int offset = 0;
