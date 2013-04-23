@@ -20,25 +20,35 @@ public class BoardTest{
 	@Test
 	public void validColorTest() {
 		dummyBoard = new Board ();
-        assertEquals("should be equal",dummyBoard.checkAndSetColor("W"),true);
+        assertTrue(dummyBoard.checkAndSetColor("W"));
+        assertTrue(dummyBoard.checkAndSetColor("B"));
 	}
 	
 	@Test
 	public void invalidColorTest() {
 		dummyBoard = new Board ();
-        assertEquals("should be equal",dummyBoard.checkAndSetColor("C"),false);
+        assertFalse(dummyBoard.checkAndSetColor("C"));
+        assertFalse(dummyBoard.checkAndSetColor("R"));
+        assertFalse(dummyBoard.checkAndSetColor("55"));
 	}
 	
 	@Test
-	public void validMoveTest() {
+	public void validCurrentMoveTest() {
 		dummyBoard = new Board ();
-        assertEquals("should be equal",dummyBoard.checkAndSetMoves("22"),true);
+		assertTrue(dummyBoard.checkAndSetMoves("22"));
+		assertTrue(dummyBoard.checkAndSetMoves("1"));
+		assertTrue(dummyBoard.checkAndSetMoves("14"));
+		assertTrue(dummyBoard.checkAndSetMoves("35"));
 	}
 	
 	@Test
-	public void invalidMoveTest() {
+	public void invalidCurrentMoveTest() {
 		dummyBoard = new Board ();
-        assertEquals("should be equal",dummyBoard.checkAndSetMoves("2dd2"),false);
+		assertFalse(dummyBoard.checkAndSetMoves("2dd2"));
+		assertFalse(dummyBoard.checkAndSetMoves("44")); // too high! max moves is 40!
+		assertFalse(dummyBoard.checkAndSetMoves("0"));  // too low ! first move is 1!
+		assertFalse(dummyBoard.checkAndSetMoves("-2"));
+		assertFalse(dummyBoard.checkAndSetMoves("a"));
 	}
 	
 	@Test
@@ -46,7 +56,7 @@ public class BoardTest{
 		
 		dummyBoard = new Board();
 		String input = generateValidInput();
-		assertEquals("should be equal",dummyBoard.checkAndSetBoardFromInput(input),true);
+		assertTrue(dummyBoard.checkAndSetBoardFromInput(input));
 	}
 	
 	@Test
@@ -55,7 +65,7 @@ public class BoardTest{
 		char figure = 'k'; //white king
 		int offset = 0;
 		int position = 2;
-		assertEquals("should be equal",dummyBoard.validateAndSetCurrentFigure(figure,offset + position),true);
+		assertTrue(dummyBoard.validateAndSetCurrentFigure(figure,offset + position));
 	}
 
 	@Test	
@@ -64,7 +74,7 @@ public class BoardTest{
 		char figure = 'k'; //white king
 		int offset = 0;
 		int position = 2222;
-		assertEquals("should be equal",dummyBoard.validateAndSetCurrentFigure(figure,offset + position),false);
+		assertFalse(dummyBoard.validateAndSetCurrentFigure(figure,offset + position));
 	}
 	
 	@Test
@@ -77,7 +87,7 @@ public class BoardTest{
 		catch (IOException ex) {
 	            ex.printStackTrace();
 		}
-		assertEquals("should be equal",false,false); //TODO: @useful testCase
+		assertFalse(false); //TODO: @useful testCase
 	}
 	
 	

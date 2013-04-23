@@ -11,12 +11,6 @@ public class Bishop extends Figure{
         else
             this.figure = 'b';
     }
-    
-    @Override
-    public boolean checkMove(Move m) {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
     @Override
     /**

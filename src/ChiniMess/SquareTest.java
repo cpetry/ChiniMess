@@ -37,5 +37,20 @@ public class SquareTest {
         assertEquals(new Square("d4").toString(), "d4");
         assertEquals(new Square("e5").toString(), "e5");
     }
+    
+    @Test
+    public void isValidTest(){      
+        assertTrue(new Square("e4").isValid());
+        assertTrue(new Square("a1").isValid());
+        assertTrue(new Square("b3").isValid());
+        assertTrue(new Square("d2").isValid());
+        assertTrue(new Square("c5").isValid());
+        
+        assertFalse(new Square("e7").isValid());
+        assertFalse(new Square("f1").isValid());
+        assertFalse(new Square("g4").isValid());
+        assertFalse(new Square("14").isValid());
+        assertFalse(new Square("ab").isValid());
+    }
 
 }
