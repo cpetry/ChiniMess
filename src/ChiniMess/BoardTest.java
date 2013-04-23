@@ -189,23 +189,21 @@ public class BoardTest{
 	public void validFigure() {
 		dummyBoard = new Board();
 		char figure = 'k'; //white king
-		int offset = 0;
-		int position = 2;
-		assertTrue(dummyBoard.validateAndSetCurrentFigure(figure,offset + position));
+		Square s = new Square (2,1);
+		assertTrue(dummyBoard.validateAndSetCurrentFigure(figure,s));
 	}
 
 	@Test	
 	public void invalidFigure() {
 		dummyBoard = new Board();
 		char figure = 'k'; //white king
-		int offset = 0;
-		int position = 2222;
-		assertFalse(dummyBoard.validateAndSetCurrentFigure(figure,offset + position));
+		Square s = new Square (22222,1);
+		assertFalse(dummyBoard.validateAndSetCurrentFigure(figure,s));
 	}
 	
 	@Test
 	public void testOutputStream() {
-		dummyBoard = new Board();
+		dummyBoard = new Board(generateValidInput());
 		try {
 			dummyBoard.print(new FileOutputStream("output.txt"));
 			
