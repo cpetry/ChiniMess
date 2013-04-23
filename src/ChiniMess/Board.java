@@ -124,7 +124,7 @@ public class Board {
 		//check moves
 		try {
 			int moves = Integer.valueOf(inputMove);
-			if (moves < MAXMOVIES  && moves >= 0 ) {	//check if move is in range	
+			if (moves < MAXMOVIES  && moves > 0 ) {	//check if move is in range	
 				this.moveNumber = moves; 				//set attribute to current move_value
 				return true;							//return success
 			}
