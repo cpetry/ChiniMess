@@ -267,9 +267,15 @@ public class Board {
 		
 		if(m.IsValid()) {
 		    Figure f = this.getFigureFromField(square_from);
-			if(f != null && f.canExecuteMove(m) && (f.canJump() || m.boardIsFree(this))) {
-			    this.setFigureFromField(square_to, f);
-			    this.setFigureFromField(square_from, null);
+			if(f != null && f.canExecuteMove(m) && (f.canJump() || true /*|| m.boardIsFree(this)*/)) {
+			    
+			    // if a Pawn gets to the other side -> make it a Queen
+			    if ( (f instanceof Pawn && f.getColor() == true && square_to.getRow() == 0)
+			      || (f instanceof Pawn && f.getColor() == true && square_to.getRow() == 0))
+			        f = new Queen(f.getColor());
+			    
+			    this.setFigureToField(square_to, f);
+			    this.setFigureToField(square_from, null);
 			    
 			    this.onMove = !this.onMove;  // change current player
 			    if (this.onMove)             // white players turn again
@@ -366,12 +372,11 @@ public class Board {
 		for(int row = 0; row < HEIGHT; row++) {
 			for (int col = 0; col < WIDTH; col++) {
 				
-				Square fromSquare = new Square(row,col);
+				Square fromSquare = new Square(col, row);
 				Figure tmpFigure = getFigureFromField(fromSquare);
 				
 				if (tmpFigure != null && tmpFigure.getColor() == onMove) { //test for empty field and turn		
 					moves.addAll(simulateMoves(fromSquare));
-		
 				}
 			}
 		}
@@ -389,20 +394,20 @@ public class Board {
 		ArrayList<Move> possibleMoves = new ArrayList<Move>();
 		
 		for(int currentRow = 0; currentRow < HEIGHT; currentRow++) {
-			
 			for (int currentCol = 0; currentCol < WIDTH; currentCol++) {
 				
-				Square toSquare = new Square(currentRow,currentCol);
-				if (this.executeMove(new Move(fromSquare,toSquare))) {
-					possibleMoves.add(new Move(fromSquare,toSquare));
+				Square toSquare = new Square(currentCol, currentRow);
+				Figure toFigure   = getFigureFromField(toSquare);       // figure on destination square
+				Figure fromFigure = getFigureFromField(fromSquare);     // figure on start square
+				
+				if (toFigure == null || toFigure.getColor() != fromFigure.getColor()){     // free square or figure of other team?
+				    if (fromFigure.canExecuteMove(new Move(fromSquare, toSquare))) {       // can figure execute move?
+				        possibleMoves.add(new Move(fromSquare, toSquare));
+				    }
 				}
-					
 			}
 		}
-		
 		return possibleMoves;
-		
-		
 	}
 	
 }

@@ -30,11 +30,14 @@ public class State {
                 if (!s.isValid())
                     throw new IllegalArgumentException("wrong square!");
                 Figure f = b.getFigureFromField(s);
-                if (f.toString() == "k")
-                    black_lives = true;
-                else if (f.toString() == "K")
-                    white_lives = true;
+                if (f != null){
+                    if (f.toString().equals("k"))
+                        black_lives = true;
+                    else if (f.toString().equals("K"))
+                        white_lives = true;
+                }
             }
+        
         if (black_lives && white_lives)
             return false;
         else
