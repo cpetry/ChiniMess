@@ -253,28 +253,33 @@ public class Board {
 	}
 	
 	
-	
+	/**
+	 * @brief  Executes a move.
+	 *         checks if the move is valid. 
+	 *         changes current player and the perhaps number of moves.
+	 *                  
+	 * @param m
+	 * @return
+	 */
 	public boolean executeMove(Move m)  {
 		
-		int y_From = m.getFrom().getRow();
-		int x_From = m.getFrom().getCol();
-		
-		int y_To = m.getTo().getRow();
-		int x_To = m.getTo().getCol();
+		Square square_from = new Square(m.getFrom().getCol(), m.getFrom().getRow());
+		Square square_to   = new Square(m.getTo().getCol(),   m.getTo().getRow());
 		
 		if(m.IsValid()) {
-			
-			if(board.get(y_From * x_From + x_From) != null && y_To < HEIGHT && x_To < WIDTH) {
-					
-				
+		    Figure f = this.getFigureFromField(square_from);
+			if(f != null && f.canExecuteMove(m) && (f.canJump() || m.boardIsFree(this))) {
+			    this.setFigureFromField(square_to, f);
+			    this.setFigureFromField(square_from, null);
+			    
+			    this.onMove = !this.onMove;  // change current player
+			    if (this.onMove)             // white players turn again
+			        this.moveNumber++;
+			    return true;
 			}
-					
 		}
-		else 
-			return false;
 		
-		return true;
-		
+		return false;
 	}
 	
 	
