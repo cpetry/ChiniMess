@@ -14,7 +14,7 @@ public class Game {
         
         while(status == GameStatus.GAME_RUNNING){
             Move m;
-            if (b.getPlayerOnTurn() == Board.BLACK)
+            if (b.getPlayerOnTurn() == Board.WHITE)
                 m = randomPlayer(b);
             else //if (b.getPlayerOnTurn() == Board.BLACK)
                 m = randomPlayer(b);
@@ -24,7 +24,7 @@ public class Game {
             status = b.gameOver();
             System.out.println(b);
             System.out.println("picked Move:" + m);
-            System.out.println("Score: " + b.calculateScore() + "Moves: " + b.getMoveNumber());
+            System.out.println("Score: " + b.calculateScore());
         }
         
         // Determine the winning player
