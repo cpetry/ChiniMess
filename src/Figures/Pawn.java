@@ -1,7 +1,5 @@
 package Figures;
 
-import ChiniMess.Move;
-
 public class Pawn extends Figure{
 
     public Pawn(boolean white) {
