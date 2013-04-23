@@ -179,7 +179,6 @@ public class Board {
 		if (tokens[1] != null && this.checkAndSetColor(tokens[1]) == false) 
 				return false;
 		
-
 		if (tokens.length == HEIGHT + 2) { //test if String_HEIGHT is valid
 			for (int i = 2; i < tokens.length; i++) {
 				char currentLine [] = tokens[i].toCharArray();
@@ -187,9 +186,9 @@ public class Board {
 				if (currentLine.length < WIDTH) //test String_WIDTH is valid
 					return false;
 				
-				int offset = (i - 2) * WIDTH;	//-2 for counting from zero
 				for (int j = 0; j < currentLine.length;j++) {
-					if (validateAndSetCurrentFigure(currentLine[j],offset + j) == false) { //check and set current Figure_Object
+					Square figureSquare = new Square(j,i - 2);
+					if (validateAndSetCurrentFigure(currentLine[j],figureSquare) == false) { //check and set current Figure_Object
 						return false;
 					}
 				}
@@ -201,12 +200,12 @@ public class Board {
 	}
 	
 	/**
-	 * @brief init. figure with char c at position index on the board
+	 * @brief init figure with char c at position index on the board
 	 * @param c
 	 * @param index
 	 * @return true, if figure on index with char could be set
 	 */
-	public boolean validateAndSetCurrentFigure(char c, int index) {
+	public boolean validateAndSetCurrentFigure(char c, Square inputSquare) {
 		boolean isWhite = false; 
 		boolean possible = true; // return_value
 		
@@ -219,25 +218,25 @@ public class Board {
 			switch (c) {
 				
 				case 'k':
-					board.set(index, new King(isWhite));
+					setFigureToField(inputSquare, new King(isWhite));
 					break;
 				case 'q':
-					board.set(index, new Queen(isWhite));
+					setFigureToField(inputSquare, new Queen(isWhite));
 					break;
 				case 'b':
-					board.set(index, new Bishop(isWhite));
+					setFigureToField(inputSquare, new Bishop(isWhite));
 					break;
 				case 'n':
-					board.set(index, new Knight(isWhite));
+					setFigureToField(inputSquare, new Knight(isWhite));
 					break;
 				case 'r':
-					board.set(index, new Rook(isWhite));
+					setFigureToField(inputSquare, new Rook(isWhite));
 					break;
 				case 'p':
-					board.set(index, new Pawn(isWhite));
+					setFigureToField(inputSquare, new Pawn(isWhite));
 					break;
 				case '.':
-					board.set(index,null);
+					setFigureToField(inputSquare, null);
 					break;
 				default: 
 					possible = false;
@@ -289,11 +288,20 @@ public class Board {
 	 * @return figure at square-position; null if empty
 	 */
 	public Figure getFigureFromField(Square inputSquare) {
+		int column = inputSquare.getCol();
+		int line  = inputSquare.getRow();
+		
 		if (inputSquare.isValid()) {
-			return board.get((1 + inputSquare.getRow()) * inputSquare.getCol()); //get Figure from Square
+			return board.get(WIDTH *  line + column); //get Figure from Square
 			
 		}
 		return null;
+	}
+	
+	public void setFigureToField(Square inputSquare, Figure inputFigure) {
+		int column = inputSquare.getCol();
+		int line  = inputSquare.getRow();
+		board.set(line * WIDTH + column, inputFigure);
 	}
 	
 	/**
