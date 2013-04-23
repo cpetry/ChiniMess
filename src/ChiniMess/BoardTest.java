@@ -53,6 +53,35 @@ public class BoardTest{
 	}
 	
 	@Test
+	public void setPositionTest(){
+		
+		dummyBoard = new Board();
+		boolean isWhite = true;
+		
+		
+		//set Bishop to position 1,1
+		Square s = new Square(1,1);
+		dummyBoard.setFigureToField(s, new Bishop(isWhite));
+		Figure b = dummyBoard.getFigureFromField(s);
+		assertTrue(b instanceof Bishop);
+		
+		//set Bishop to position 2,2
+		s = new Square(2,2);
+		dummyBoard.setFigureToField(s, new Bishop(isWhite));
+		b = dummyBoard.getFigureFromField(s);
+		assertTrue(b instanceof Bishop);
+		
+		//set Bishop to position 3,3
+		s = new Square(3,3);
+		dummyBoard.setFigureToField(s, new Bishop(isWhite));
+		b = dummyBoard.getFigureFromField(s);
+		assertTrue(b instanceof Bishop);
+		
+		System.out.println(dummyBoard);
+	}
+	
+	
+	@Test
 	public void positioningTest(){
 	    dummyBoard = new Board();
         String input =    "22 B\n"
@@ -63,14 +92,16 @@ public class BoardTest{
                         + "PPPPP\n"
                         + "RNBQK";
         dummyBoard.checkAndSetBoardFromInput(input);
-        Figure k = dummyBoard.getFigureFromField(new Square(0, 0));
-        Figure q = dummyBoard.getFigureFromField(new Square(1, 0));
+        Figure k = dummyBoard.getFigureFromField(new Square(0, 0));    
+        Figure q = dummyBoard.getFigureFromField(new Square(1, 0));  
         Figure b = dummyBoard.getFigureFromField(new Square(2, 0));
+
         Figure n = dummyBoard.getFigureFromField(new Square(3, 0));
         Figure r = dummyBoard.getFigureFromField(new Square(4, 0));
         
-        Figure f = dummyBoard.getFigureFromField(new Square(2, 0));
+        Figure f = dummyBoard.getFigureFromField(new Square(0, 2));
         
+       
         Figure K = dummyBoard.getFigureFromField(new Square(4, 5));
         Figure Q = dummyBoard.getFigureFromField(new Square(3, 5));
         Figure B = dummyBoard.getFigureFromField(new Square(2, 5));

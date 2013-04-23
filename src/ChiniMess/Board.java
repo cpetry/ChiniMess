@@ -180,14 +180,14 @@ public class Board {
 				return false;
 		
 		if (tokens.length == HEIGHT + 2) { //test if String_HEIGHT is valid
-			for (int i = 0; i < tokens.length; i++) {
-				char currentLine [] = tokens[i + 2].toCharArray();
+			for (int i = 2; i < tokens.length; i++) {
+				char currentLine [] = tokens[i].toCharArray();
 				
 				if (currentLine.length < WIDTH) //test String_WIDTH is valid
 					return false;
 				
 				for (int j = 0; j < currentLine.length;j++) {
-					Square figureSquare = new Square(i,j);
+					Square figureSquare = new Square(j,i - 2);
 					if (validateAndSetCurrentFigure(currentLine[j],figureSquare) == false) { //check and set current Figure_Object
 						return false;
 					}
@@ -283,17 +283,20 @@ public class Board {
 	 * @return figure at square-position; null if empty
 	 */
 	public Figure getFigureFromField(Square inputSquare) {
+		int column = inputSquare.getCol();
+		int line  = inputSquare.getRow();
+		
 		if (inputSquare.isValid()) {
-			return board.get(WIDTH *  inputSquare.getRow() + inputSquare.getCol()); //get Figure from Square
+			return board.get(WIDTH *  line + column); //get Figure from Square
 			
 		}
 		return null;
 	}
 	
 	public void setFigureToField(Square inputSquare, Figure inputFigure) {
-		int colum = inputSquare.getRow();
-		int line  = inputSquare.getCol();
-		board.add(line * WIDTH + colum, inputFigure);
+		int column = inputSquare.getCol();
+		int line  = inputSquare.getRow();
+		board.set(line * WIDTH + column, inputFigure);
 	}
 	
 	/**
