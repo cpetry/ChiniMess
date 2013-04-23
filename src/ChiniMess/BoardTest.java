@@ -58,26 +58,21 @@ public class BoardTest{
 		dummyBoard = new Board();
 		boolean isWhite = true;
 		
+		//current field_values
+		int height = 6; 
+		int width = 5;
 		
-		//set Bishop to position 1,1
-		Square s = new Square(1,1);
-		dummyBoard.setFigureToField(s, new Bishop(isWhite));
-		Figure b = dummyBoard.getFigureFromField(s);
-		assertTrue(b instanceof Bishop);
+		Square s = new Square(0,0);
 		
-		//set Bishop to position 2,2
-		s = new Square(2,2);
-		dummyBoard.setFigureToField(s, new Bishop(isWhite));
-		b = dummyBoard.getFigureFromField(s);
-		assertTrue(b instanceof Bishop);
-		
-		//set Bishop to position 3,3
-		s = new Square(3,3);
-		dummyBoard.setFigureToField(s, new Bishop(isWhite));
-		b = dummyBoard.getFigureFromField(s);
-		assertTrue(b instanceof Bishop);
-		
-		System.out.println(dummyBoard);
+		//test every square with a bishop_square
+		for (int line = 0; line < height; line++) {
+			for (int col = 0; col < width; col++) {
+				s = new Square(col,line);
+				dummyBoard.setFigureToField(s,new Bishop(isWhite));
+				Figure b = dummyBoard.getFigureFromField(s);
+				assertTrue(b instanceof Bishop); //validate bishop_position
+			}
+		}
 	}
 	
 	
