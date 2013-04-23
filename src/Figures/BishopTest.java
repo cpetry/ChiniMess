@@ -30,8 +30,20 @@ public class BishopTest {
         assertTrue(b.canMoveTo(-1, -1));
         assertTrue(b.canMoveTo(-1, 1));
         assertTrue(b.canMoveTo(1, -1));
-        assertTrue(b.canMoveTo(2, -1));
-        assertTrue(b.canMoveTo(1, -2));
+        assertTrue(b.canMoveTo(2, 2));
+        assertTrue(b.canMoveTo(-3, -3));
+        assertTrue(b.canMoveTo(-2, 2));
+        assertTrue(b.canMoveTo(4, -4));
+        
+        // Knight test
+        assertFalse(b.canMoveTo(2, 1));
+        assertFalse(b.canMoveTo(-2, 1));
+        assertFalse(b.canMoveTo(2, -1));
+        assertFalse(b.canMoveTo(-2, -1));
+        assertFalse(b.canMoveTo(1, 2));
+        assertFalse(b.canMoveTo(-1, 2));
+        assertFalse(b.canMoveTo(1, -2));
+        assertFalse(b.canMoveTo(-1, -2));
     }
     
     @Test
@@ -52,8 +64,20 @@ public class BishopTest {
         assertTrue(b.canCapture(-1, -1));
         assertTrue(b.canCapture(-1, 1));
         assertTrue(b.canCapture(1, -1));
-        assertTrue(b.canCapture(2, -1));
-        assertTrue(b.canCapture(1, -2));
+        assertTrue(b.canCapture(2, 2));
+        assertTrue(b.canCapture(-3, -3));
+        assertTrue(b.canCapture(-2, 2));
+        assertTrue(b.canCapture(4, -4));
+        
+        // Knight test
+        assertFalse(b.canCapture(2, 1));
+        assertFalse(b.canCapture(-2, 1));
+        assertFalse(b.canCapture(2, -1));
+        assertFalse(b.canCapture(-2, -1));
+        assertFalse(b.canCapture(1, 2));
+        assertFalse(b.canCapture(-1, 2));
+        assertFalse(b.canCapture(1, -2));
+        assertFalse(b.canCapture(-1, -2));
     }
 
 }
