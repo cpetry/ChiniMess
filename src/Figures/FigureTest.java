@@ -8,6 +8,21 @@ import ChiniMess.Move;
 
 public class FigureTest {
 
+    public void canJumpTest(){
+        Pawn p = new Pawn(true);       // white Pawn
+        Rook r = new Rook(true);        // white Rook
+        Knight n = new Knight(true);    // white Knight
+        Bishop b = new Bishop(true);    // white Bishop
+        Queen q = new Queen(true);      // white Queen
+        King k = new King(true);        // white King
+        
+        assertFalse(p.canJump());
+        assertFalse(r.canJump());
+        assertTrue(n.canJump());
+        assertFalse(b.canJump());
+        assertFalse(q.canJump());
+        assertFalse(k.canJump());
+    }
     @Test
     /**
      * @brief Tests if the figure can move straight several squares

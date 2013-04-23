@@ -6,13 +6,19 @@ import ChiniMess.Square;
 public abstract class Figure {
     protected boolean white;
     protected char figure;
+    protected boolean canJump;
     
     public Figure(boolean white){
         this.white = white;
+        this.canJump = false;   //normally no one can jump (except knight)
     }
     
     public abstract boolean canMoveTo(int dr, int dc);
     public abstract boolean canCapture(int dr, int dc);
+    
+    public boolean canJump(){
+        return this.canJump;
+    }
     
     /**
      * Tests the Move-command if the figure can execute it.
