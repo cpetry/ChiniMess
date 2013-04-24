@@ -35,11 +35,11 @@ public class MoveTest {
     
     @Test
     public void equalToString(){      
-        assertEquals(new Move("a1e6").toString(), "a1e6");
-        assertEquals(new Move("b2d5").toString(), "b2d5");
-        assertEquals(new Move("c3c4").toString(), "c3c4");
-        assertEquals(new Move("d4b3").toString(), "d4b3");
-        assertEquals(new Move("e5a2").toString(), "e5a2");
+        assertEquals(new Move("a1e6").toString(), "a1-e6");
+        assertEquals(new Move("b2d5").toString(), "b2-d5");
+        assertEquals(new Move("c3c4").toString(), "c3-c4");
+        assertEquals(new Move("d4b3").toString(), "d4-b3");
+        assertEquals(new Move("e5a2").toString(), "e5-a2");
     }
     
     @Test

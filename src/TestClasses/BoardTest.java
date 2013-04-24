@@ -85,25 +85,28 @@ public class BoardTest{
                         + "kqbnr\n"
                         + "ppppp\n"
                         + ".....\n"
-                        + ".....\n"
+                        + "...k.\n"
                         + "PPPPP\n"
-                        + "RNBQK";
-        dummyBoard.checkAndSetBoardFromInput(input);
-        Figure k = dummyBoard.getFigureFromField(new Square(0, 0));    
-        Figure q = dummyBoard.getFigureFromField(new Square(1, 0));  
-        Figure b = dummyBoard.getFigureFromField(new Square(2, 0));
+                        + "RNBQK\n";
+                        
+                     
+        dummyBoard = new Board(input);
+        Figure k = dummyBoard.getFigureFromField(new Square(0, 5));   
+        System.out.println(dummyBoard);
+        Figure q = dummyBoard.getFigureFromField(new Square(1, 5));  
+        Figure b = dummyBoard.getFigureFromField(new Square(2, 5));
 
-        Figure n = dummyBoard.getFigureFromField(new Square(3, 0));
-        Figure r = dummyBoard.getFigureFromField(new Square(4, 0));
+        Figure n = dummyBoard.getFigureFromField(new Square(3, 5));
+        Figure r = dummyBoard.getFigureFromField(new Square(4, 5));
         
-        Figure f = dummyBoard.getFigureFromField(new Square(0, 2));
+        Figure f = dummyBoard.getFigureFromField(new Square(0, 3));
         
        
-        Figure K = dummyBoard.getFigureFromField(new Square(4, 5));
-        Figure Q = dummyBoard.getFigureFromField(new Square(3, 5));
-        Figure B = dummyBoard.getFigureFromField(new Square(2, 5));
-        Figure N = dummyBoard.getFigureFromField(new Square(1, 5));
-        Figure R = dummyBoard.getFigureFromField(new Square(0, 5));
+        Figure K = dummyBoard.getFigureFromField(new Square(4, 0));
+        Figure Q = dummyBoard.getFigureFromField(new Square(3, 0));
+        Figure B = dummyBoard.getFigureFromField(new Square(2, 0));
+        Figure N = dummyBoard.getFigureFromField(new Square(1, 0));
+        Figure R = dummyBoard.getFigureFromField(new Square(0, 0));
         
         assertTrue(k instanceof King);
         assertTrue(q instanceof Queen);

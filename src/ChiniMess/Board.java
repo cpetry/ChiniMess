@@ -205,14 +205,14 @@ public class Board implements Comparable<Board>{
 				return false;
 		
 		if (tokens.length == HEIGHT + 2) { //test if String_HEIGHT is valid
-			for (int i = 2; i < tokens.length; i++) {
+			for (int i = 2; i < tokens.length;i++) {
 				char currentLine [] = tokens[i].toCharArray();
 				
 				if (currentLine.length < WIDTH) //test String_WIDTH is valid
 					return false;
 				
 				for (int j = 0; j < currentLine.length;j++) {
-					Square figureSquare = new Square(j,i - 2);
+					Square figureSquare = new Square(j,(HEIGHT - 1) - (i - 2));
 					if (validateAndSetCurrentFigure(currentLine[j],figureSquare) == false) { //check and set current Figure_Object
 						return false;
 					}
@@ -233,7 +233,7 @@ public class Board implements Comparable<Board>{
 	 */
 	public boolean validateAndSetCurrentFigure(char c, Square inputSquare) {
 		boolean isWhite = false; 
-		boolean possible = true; // return_value
+		boolean possible = false; // return_value
 		
 		if (c > 'A' && c < 'Z') //white is upper_Case
 			isWhite = true; 
@@ -244,25 +244,25 @@ public class Board implements Comparable<Board>{
 			switch (c) {
 				
 				case 'k':
-					setFigureToField(inputSquare, new King(isWhite));
+					possible = setFigureToField(inputSquare, new King(isWhite));
 					break;
 				case 'q':
-					setFigureToField(inputSquare, new Queen(isWhite));
+					possible = setFigureToField(inputSquare, new Queen(isWhite));
 					break;
 				case 'b':
-					setFigureToField(inputSquare, new Bishop(isWhite));
+					possible = setFigureToField(inputSquare, new Bishop(isWhite));
 					break;
 				case 'n':
-					setFigureToField(inputSquare, new Knight(isWhite));
+					possible = setFigureToField(inputSquare, new Knight(isWhite));
 					break;
 				case 'r':
-					setFigureToField(inputSquare, new Rook(isWhite));
+					possible = setFigureToField(inputSquare, new Rook(isWhite));
 					break;
 				case 'p':
-					setFigureToField(inputSquare, new Pawn(isWhite));
+					possible = setFigureToField(inputSquare, new Pawn(isWhite));
 					break;
 				case '.':
-					setFigureToField(inputSquare, null);
+					possible = setFigureToField(inputSquare, null);
 					break;
 				default: 
 					possible = false;
@@ -331,14 +331,19 @@ public class Board implements Comparable<Board>{
 			throw new IllegalArgumentException("wrong square!");
 		}
 		else {
-			return board.get(WIDTH *  inputSquare.getRow() + inputSquare.getCol()); //get Figure from Square
+			return board.get(WIDTH * (HEIGHT - inputSquare.getRow() - 1) + inputSquare.getCol()); //get Figure from Square
 		}
 	}
 	
-	public void setFigureToField(Square inputSquare, Figure inputFigure) {
-		int column = inputSquare.getCol();
-		int line  = inputSquare.getRow();
-		board.set(line * WIDTH + column, inputFigure);
+	public boolean setFigureToField(Square inputSquare, Figure inputFigure) {
+		if (inputSquare.isValid()) {
+			int column = inputSquare.getCol();
+			int line  = HEIGHT - inputSquare.getRow() - 1;
+			board.set(line * WIDTH + column, inputFigure);
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	/**
@@ -406,7 +411,7 @@ public class Board implements Comparable<Board>{
 				Square fromSquare = new Square(col, row);
 				Figure tmpFigure = getFigureFromField(fromSquare);
 				
-				if (tmpFigure != null && tmpFigure.getColor() == onMove) { //test for empty field and turn		
+				if (tmpFigure != null && tmpFigure.getColor() == this.onMove) { //test for empty field and turn		
 					moves.addAll(simulateMoves(fromSquare));
 				}
 			}
@@ -528,6 +533,10 @@ public class Board implements Comparable<Board>{
         if (hash != other.hash)
             return false;
         return true;
+    }
+    
+    public void setTurn(boolean turn) {
+    	this.onMove = turn;
     }
 
     @Override
