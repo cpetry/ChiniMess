@@ -6,8 +6,8 @@ import ChiniMess.GameStatus;
 import ChiniMess.Move;
 
 public class NegamaxABTTable extends NegamaxABPlayer{
-    public NegamaxABTTable(long time_to_think) {
-        super(time_to_think);
+    public NegamaxABTTable(int depth, long time_to_think) {
+        super(depth);
     }
 
     TTable ttable = new TTable();

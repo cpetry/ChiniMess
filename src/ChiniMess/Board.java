@@ -284,15 +284,20 @@ public class Board implements Comparable<Board>{
 		Square square_to   = new Square(m.getTo().getCol(),   m.getTo().getRow());
 		
 		if(m.isValid()) {
-		    Figure f = this.getFigureFromField(square_from);
-			if(f != null && f.canExecuteMove(m) && (f.canJump() || m.pathIsFree(this))) {
+		    Figure fromFigure = this.getFigureFromField(square_from);
+		    Figure toFigure = this.getFigureFromField(square_to);
+			if(fromFigure != null 
+			&& ((fromFigure.canExecuteMove(m) && toFigure == null) 
+			 || (fromFigure.canExecuteCapture(m) && toFigure != null && toFigure.getColor() != fromFigure.getColor()))
+			//toFigure.getColor() != fromFigure.getColor()
+			&& (fromFigure.canJump() || m.pathIsFree(this))) {
 			    
 			    // if a Pawn gets to the other side -> make it a Queen
-			    if ( (f instanceof Pawn && f.getColor() == this.WHITE && square_to.getRow() == 0)
-			      || (f instanceof Pawn && f.getColor() == this.BLACK && square_to.getRow() == this.HEIGHT))
-			        f = new Queen(f.getColor());
+			    if ( (fromFigure instanceof Pawn && fromFigure.getColor() == this.WHITE && square_to.getRow() == 0)
+			      || (fromFigure instanceof Pawn && fromFigure.getColor() == this.BLACK && square_to.getRow() == this.HEIGHT))
+			        fromFigure = new Queen(fromFigure.getColor());
 			    
-			    this.setFigureToField(square_to, f);
+			    this.setFigureToField(square_to, fromFigure);
 			    this.setFigureToField(square_from, null);
 			    
 			    this.onMove = !this.onMove;  // change current player

@@ -14,7 +14,7 @@ public class Game {
         GameStatus status = GameStatus.GAME_RUNNING;
         System.out.println(b);
         
-        Player White = new NegamaxABPlayer(500);
+        Player White = new NegamaxABPlayer(4);
         Player Black = new NegamaxPlayer(2);
         
         while(status == GameStatus.GAME_RUNNING){
