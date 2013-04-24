@@ -12,13 +12,17 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import Figures.*;
+import TTable.ZobristTable;
 
 
-public class Board {
+public class Board implements Comparable<Board>{
+    
+
     private final int WIDTH = 5, HEIGHT = 6;
     private final int MAXMOVES = 40; 
     public static final boolean WHITE = true;
     public static final boolean BLACK = false;
+    private long hash; // hashmember for TTable
     
     private int moveNumber; 
     private boolean onMove; 
@@ -484,9 +488,43 @@ public class Board {
 	public int getMoveNumber(){
 	    return this.moveNumber;
 	}
-	
+
 	public ArrayList<Figure> getBoard() {
 		return new ArrayList<Figure>(this.board);
-	}
+	}@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
 
-}
+        for (int row=0; row < this.HEIGHT; row++)
+            for (int col=0; col < this.WIDTH; col++)
+                result += ZobristTable.array[col + row*this.WIDTH];
+        result = prime * result + (int) (hash ^ (hash >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Board other = (Board) obj;
+        if (hash != other.hash)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int compareTo(Board arg0) {
+        int this_score = this.calculateScore();
+        int other_score = arg0.calculateScore();
+        if (this_score == other_score) 
+            return 0;
+        else if (this_score > other_score)
+            return 1;
+        else
+            return -1;
+    }}
