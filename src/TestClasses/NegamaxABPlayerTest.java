@@ -21,7 +21,8 @@ public class NegamaxABPlayerTest {
                 + "....K\n";
         Player p = new NegamaxABPlayer(3);
         Move m = p.chooseMove(new Board(input));
-        assertTrue("d5e6".equals(m.toString()));
+        System.out.println(m);
+        assertTrue("! d5-d6".equals(m.toString()));
         
         
     }

@@ -22,7 +22,7 @@ public class NegamaxPlayerTest {
                 + "....K\n";
         Player p = new NegamaxPlayer(3);
         Board b = new Board(input);
-        //System.out.println(b.genMoves());
+        System.out.println(b.genMoves());
         Move m = p.chooseMove(b);
         System.out.println(m);
         assertTrue("c3a1".equals(m.toString()));
