@@ -405,7 +405,8 @@ public class Board {
 				Figure fromFigure = getFigureFromField(fromSquare);     // figure on start square
 				
 				if (toFigure == null || toFigure.getColor() != fromFigure.getColor()){     // free square or figure of other team?
-				    if (fromFigure.canExecuteMove(new Move(fromSquare, toSquare))) {       // can figure execute move?
+				    Move m = new Move(fromSquare, toSquare);
+				    if (fromFigure.canExecuteMove(m) && m.pathIsFree(this)) {       // can figure execute move?
 				        possibleMoves.add(new Move(fromSquare, toSquare));
 				    }
 				}
@@ -430,8 +431,11 @@ public class Board {
                     else
                         white_score += f.getScore();
                 }
-            }        
-        return white_score - black_score;
+            }
+        if (this.onMove == this.WHITE)
+            return white_score - black_score;
+        else
+            return black_score - white_score;
     }
     
     public GameStatus gameOver(){
