@@ -5,32 +5,26 @@ import java.util.ArrayList;
 import ChiniMess.Board;
 import ChiniMess.Move;
 
-public class greedyPlayer extends Player {
-
-	
-	private int maxScore;
-	
-	public greedyPlayer() {
-		maxScore = -10000;
-		
-	}
+public class GreedyPlayer extends Player {	
+	public GreedyPlayer() {}
 	
 	public Move chooseMove(Board b) {
+	    int max_score = -100001;
 		ArrayList<Move> moves = b.genMoves();
-        Move bestMove = null;
+        Move bestMove = null; // = moves.get(0);       // at least (if no better move is found) take the first one
+        int score = -b.calculateScore();
         
         for (Move m : moves){
-            Board bTest = new Board();
-            bTest.checkAndSetBoardFromInput(b.toString());
+            Board bTest = new Board(b.toString());
             bTest.executeMove(m);
             
-            int score = -bTest.calculateScore();
-            if (score > this.maxScore){
-                this.maxScore = score;
+            score = bTest.calculateScore();
+            if (score > max_score){
+                System.out.println("better move :) ");
+                max_score = score;
                 bestMove = m;
             }
         }
-        System.out.println(this.maxScore);
         return bestMove;
 	}
 

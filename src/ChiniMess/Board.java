@@ -269,9 +269,9 @@ public class Board {
 		Square square_from = new Square(m.getFrom().getCol(), m.getFrom().getRow());
 		Square square_to   = new Square(m.getTo().getCol(),   m.getTo().getRow());
 		
-		if(m.IsValid()) {
+		if(m.isValid()) {
 		    Figure f = this.getFigureFromField(square_from);
-			if(f != null && f.canExecuteMove(m) && (f.canJump() || true /*|| m.boardIsFree(this)*/)) {
+			if(f != null && f.canExecuteMove(m) && (f.canJump() || m.pathIsFree(this))) {
 			    
 			    // if a Pawn gets to the other side -> make it a Queen
 			    if ( (f instanceof Pawn && f.getColor() == this.WHITE && square_to.getRow() == 0)
@@ -415,20 +415,23 @@ public class Board {
 	}
 	
 	public int calculateScore(){
-        int score = 0;
-        for (int r = 0; r < 6; r++)
-            for (int c = 0; c < 5; c++){
+        int white_score = 0, black_score = 0;
+        
+        for (int r = 0; r < this.HEIGHT; r++)
+            for (int c = 0; c < this.WIDTH; c++){
                 Square s = new Square(c, r);
                 if (!s.isValid())
                     throw new IllegalArgumentException("wrong square!");
                 Figure f = this.getFigureFromField(s);
                 
-                if (f == null) 
-                    score += 0;
-                else 
-                    score += f.getScore();
-            }
-        return score;
+                if (f != null){
+                    if (f.getColor() == this.BLACK)
+                        black_score += f.getScore();
+                    else
+                        white_score += f.getScore();
+                }
+            }        
+        return white_score - black_score;
     }
     
     public GameStatus gameOver(){
