@@ -26,7 +26,12 @@ public class Move {
 		this.to = to;
 	}
 	
-	//"! "+from+"-"+to;
+	public Move swapMove(){
+	    Square save = this.to;
+	    this.to = this.from;
+	    this.from = save;
+	    return this;
+	}
 	
 	public boolean pathIsFree(Board board) {
 
