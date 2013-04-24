@@ -308,14 +308,14 @@ public class Board {
 	 * @return figure at square-position; null if empty
 	 */
 	public Figure getFigureFromField(Square inputSquare) {
-		int column = inputSquare.getCol();
-		int line  = inputSquare.getRow();
 		
-		if (inputSquare.isValid()) {
-			return board.get(WIDTH *  line + column); //get Figure from Square
+		if (inputSquare.isValid() == false) {
 			
+			throw new IllegalArgumentException("wrong square!");
 		}
-		return null;
+		else {
+			return board.get(WIDTH *  inputSquare.getRow() + inputSquare.getCol()); //get Figure from Square
+		}
 	}
 	
 	public void setFigureToField(Square inputSquare, Figure inputFigure) {
@@ -425,14 +425,14 @@ public class Board {
 		return possibleMoves;
 	}
 	
+	
+	
 	public int calculateScore(){
         int white_score = 0, black_score = 0;
         
         for (int r = 0; r < this.HEIGHT; r++)
             for (int c = 0; c < this.WIDTH; c++){
                 Square s = new Square(c, r);
-                if (!s.isValid())
-                    throw new IllegalArgumentException("wrong square!");
                 Figure f = this.getFigureFromField(s);
                 
                 if (f != null){
