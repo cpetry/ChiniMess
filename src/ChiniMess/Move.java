@@ -9,11 +9,16 @@ public class Move {
 	public Move(String koordinaten){
 		
 		char [] chararray = koordinaten.toCharArray();
-		
-		from 	= new Square(chararray[0]+""+chararray[1]);
-		to		= new Square(chararray[2]+""+chararray[3]);
-		
+		if(chararray.length == 4){
+			from 	= new Square(chararray[0]+""+chararray[1]);
+			to		= new Square(chararray[2]+""+chararray[3]);
+		}else{
+			from	= new Square(chararray[2]+""+chararray[3]);
+			to		= new Square(chararray[5]+""+chararray[6]);
+		}
 	}
+	
+	
 	
 	public Move(Square from, Square to){
 		
@@ -210,7 +215,7 @@ public class Move {
 
 	public String toString(){
 				
-		return from+""+to;
+		return "! "+from+"-"+to;
 		
 	}
 	

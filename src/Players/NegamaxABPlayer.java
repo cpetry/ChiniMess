@@ -43,8 +43,7 @@ public class NegamaxABPlayer extends NegamaxPlayer{
            if (v>= beta)
                return v;
        }
-       return v;
-    }
+       return v;    }
     
     private Move best_move(Board state, int depth){
         int d0 = 1;
