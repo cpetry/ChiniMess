@@ -39,25 +39,37 @@ public class NegamaxABPlayer extends NegamaxPlayer{
         if (depth == 0)
             return state.calculateScore();
         
+        
+        /*
         ArrayList<Board> next_states = new ArrayList<Board>();
         
-        for (Move m : state.genMoves()){
-            Board next_state = new Board(state);
-            next_state.executeMove(m);
-            next_states.add(next_state);
+        for (Move m : ){
+            state.executeMove(m);
+
+            next_states.add(state);
+            
+            Move m2 = new Move(m.getTo(), m.getFrom());
+            state.executeMove(m2);
+            
         }
         
         // sort reverse order because best one should be first!
         Collections.sort(next_states); 
         
-        /*System.out.println("test");
+        System.out.println("test");
         for (Board test : next_states){
             System.out.println(test.calculateScore());
-        }*/
+        }
+        */
+        
+        ArrayList<Move> moves = state.genMoves();
+        
         
         int score = 0;
         
-        for (Board next_state : next_states){
+        for (Move m : moves){
+            Board next_state = state; 
+            next_state.executeMove(m);
             if (next_state.gameOver() != GameStatus.GAME_RUNNING){
                 if (next_state.gameOver() == GameStatus.GAME_DRAW)
                     score = 0;
@@ -71,6 +83,8 @@ public class NegamaxABPlayer extends NegamaxPlayer{
             }
             else
                 score = -negamax(next_state, depth-1, -beta, -alpha);
+            
+            next_state.executeMove(new Move(m.getTo(), m.getFrom()));
             
             if (score > beta)
                return score;
