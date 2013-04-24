@@ -33,12 +33,19 @@ public abstract class Figure {
         
         int delta_col = end_col - start_col;
         int delta_row = end_row - start_row;
+         
+        return this.canMoveTo(delta_row, delta_col);    // can move to square
+    }
+    
+    public boolean canExecuteCapture(Move m){
+        int start_col = m.getFrom().getCol();
+        int start_row = m.getFrom().getRow();
+        int end_col = m.getTo().getCol();
+        int end_row = m.getTo().getRow();
         
-        if (this.canMoveTo(delta_row, delta_col)    // can move to square
-          || this.canCapture(delta_row, delta_col)) // can capture square
-            return true;
-        else
-            return false;
+        int delta_col = end_col - start_col;
+        int delta_row = end_row - start_row;
+        return  this.canCapture(delta_row, delta_col); // can capture square
     }
     
     /**
