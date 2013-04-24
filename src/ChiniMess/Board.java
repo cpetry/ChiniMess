@@ -37,6 +37,15 @@ public class Board {
     }
     
     /**
+     * @brief Copy constructor
+     */
+    public Board(Board inputBoard) {    
+    	this.onMove 	= inputBoard.getPlayerOnTurn();
+    	this.moveNumber = inputBoard.getMoveNumber();
+    	this.board 		= inputBoard.getBoard();
+     }
+    
+    /**
      * @brief set board from String-Input; set default if Input is not valid
      * @param boardInput
      */
@@ -50,6 +59,7 @@ public class Board {
     		 								  
     	}
 	}
+	
 	
 	/**
      * @brief set board from InputStream; set default if Input is not valid
@@ -466,6 +476,7 @@ public class Board {
             return GameStatus.GAME_DRAW;     // shouldn't be possible!
     }
 	
+
 	public boolean getPlayerOnTurn(){
 	    return this.onMove;
 	}
@@ -473,4 +484,9 @@ public class Board {
 	public int getMoveNumber(){
 	    return this.moveNumber;
 	}
+	
+	public ArrayList<Figure> getBoard() {
+		return new ArrayList<Figure>(this.board);
+	}
+
 }

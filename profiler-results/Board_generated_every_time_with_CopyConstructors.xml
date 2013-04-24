@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExportedView Name="Live Results" type="table">
+ <TableData NumRows="32" NumColumns="4">
+  <TableHeader>   <TableColumn><![CDATA[Hot Spots - Method]]></TableColumn>
+   <TableColumn><![CDATA[Self time [%]]]></TableColumn>
+   <TableColumn><![CDATA[Self time]]></TableColumn>
+   <TableColumn><![CDATA[Invocations]]></TableColumn>
+  </TableHeader>
+  <TableBody>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Board.calculateScore()]]></TableColumn>
+    <TableColumn><![CDATA[35,76%]]></TableColumn>
+    <TableColumn><![CDATA[606.709 ms]]></TableColumn>
+    <TableColumn><![CDATA[287400]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Board.simulateMoves(ChiniMess.Square)]]></TableColumn>
+    <TableColumn><![CDATA[24,70%]]></TableColumn>
+    <TableColumn><![CDATA[419.102 ms]]></TableColumn>
+    <TableColumn><![CDATA[165639]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Board.getFigureFromField(ChiniMess.Square)]]></TableColumn>
+    <TableColumn><![CDATA[17,37%]]></TableColumn>
+    <TableColumn><![CDATA[294.719 ms]]></TableColumn>
+    <TableColumn><![CDATA[22032967]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Move.pathIsFree(ChiniMess.Board)]]></TableColumn>
+    <TableColumn><![CDATA[6,60%]]></TableColumn>
+    <TableColumn><![CDATA[111.936 ms]]></TableColumn>
+    <TableColumn><![CDATA[725302]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Board.executeMove(ChiniMess.Move)]]></TableColumn>
+    <TableColumn><![CDATA[3,82%]]></TableColumn>
+    <TableColumn><![CDATA[64.745 ms]]></TableColumn>
+    <TableColumn><![CDATA[304424]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Board.genMoves()]]></TableColumn>
+    <TableColumn><![CDATA[2,98%]]></TableColumn>
+    <TableColumn><![CDATA[50.517 ms]]></TableColumn>
+    <TableColumn><![CDATA[17025]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Square.toString()]]></TableColumn>
+    <TableColumn><![CDATA[2,27%]]></TableColumn>
+    <TableColumn><![CDATA[38.492 ms]]></TableColumn>
+    <TableColumn><![CDATA[608848]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Board.gameOver()]]></TableColumn>
+    <TableColumn><![CDATA[2,09%]]></TableColumn>
+    <TableColumn><![CDATA[35.527 ms]]></TableColumn>
+    <TableColumn><![CDATA[17257]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Move.isValid()]]></TableColumn>
+    <TableColumn><![CDATA[1,72%]]></TableColumn>
+    <TableColumn><![CDATA[29.188 ms]]></TableColumn>
+    <TableColumn><![CDATA[304424]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Figure.toString()]]></TableColumn>
+    <TableColumn><![CDATA[1,13%]]></TableColumn>
+    <TableColumn><![CDATA[19.089 ms]]></TableColumn>
+    <TableColumn><![CDATA[659183]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Board.<init>(ChiniMess.Board)]]></TableColumn>
+    <TableColumn><![CDATA[0,75%]]></TableColumn>
+    <TableColumn><![CDATA[12.726 ms]]></TableColumn>
+    <TableColumn><![CDATA[304424]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Board.getBoard()]]></TableColumn>
+    <TableColumn><![CDATA[0,56%]]></TableColumn>
+    <TableColumn><![CDATA[9.478 ms]]></TableColumn>
+    <TableColumn><![CDATA[304424]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Bishop.canMoveTo(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,19%]]></TableColumn>
+    <TableColumn><![CDATA[3.177 ms]]></TableColumn>
+    <TableColumn><![CDATA[362565]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Queen.canMoveTo(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,05%]]></TableColumn>
+    <TableColumn><![CDATA[0.883 ms]]></TableColumn>
+    <TableColumn><![CDATA[604166]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Board.setFigureToField(ChiniMess.Square, Figures.Figure)]]></TableColumn>
+    <TableColumn><![CDATA[0,01%]]></TableColumn>
+    <TableColumn><![CDATA[0.118 ms]]></TableColumn>
+    <TableColumn><![CDATA[608848]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[java.util.concurrent.ThreadPoolExecutor$Worker.run()]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.053 ms]]></TableColumn>
+    <TableColumn><![CDATA[1]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Bishop.canCapture(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.016 ms]]></TableColumn>
+    <TableColumn><![CDATA[316615]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Square.isValid()]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[31781529]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Square.<init>(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[16058844]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Move.<init>(ChiniMess.Square, ChiniMess.Square)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[3658340]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Figure.canExecuteMove(ChiniMess.Move)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[3658333]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Pawn.canMoveTo(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[1807385]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Pawn.canCapture(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[1668624]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.King.canMoveTo(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[690175]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Knight.canMoveTo(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[686592]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Rook.canMoveTo(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[637759]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[ChiniMess.Move.lastPathPosition(Figures.Figure, boolean)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[554832]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.King.canCapture(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[326195]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Knight.canCapture(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[314061]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Rook.canCapture(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[267803]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[Figures.Queen.canCapture(int, int)]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[222244]]></TableColumn>
+  </TableRow>
+   <TableRow>
+    <TableColumn><![CDATA[sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run()]]></TableColumn>
+    <TableColumn><![CDATA[0,00%]]></TableColumn>
+    <TableColumn><![CDATA[0.0 ms]]></TableColumn>
+    <TableColumn><![CDATA[1]]></TableColumn>
+  </TableRow>
+  </TableBody> </TableData>
+</ExportedView>

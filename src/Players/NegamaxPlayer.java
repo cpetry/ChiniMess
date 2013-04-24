@@ -36,11 +36,12 @@ public class NegamaxPlayer extends Player{
         
         int value = 0;
         int best_value = -this.INF;
+        Board next_state = null;
         
         ArrayList<Move> moves = state.genMoves();
         
         for (Move m : moves){
-            Board next_state = new Board(state.toString());
+            next_state = new Board(state); 
             next_state.executeMove(m);
             
             value = -negamax(next_state, depth-1);
