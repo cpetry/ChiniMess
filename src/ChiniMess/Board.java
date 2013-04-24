@@ -41,6 +41,15 @@ public class Board implements Comparable<Board>{
     }
     
     /**
+     * @brief Copy constructor
+     */
+    public Board(Board inputBoard) {    
+    	this.onMove 	= inputBoard.getPlayerOnTurn();
+    	this.moveNumber = inputBoard.getMoveNumber();
+    	this.board 		= inputBoard.getBoard();
+     }
+    
+    /**
      * @brief set board from String-Input; set default if Input is not valid
      * @param boardInput
      */
@@ -54,6 +63,7 @@ public class Board implements Comparable<Board>{
     		 								  
     	}
 	}
+	
 	
 	/**
      * @brief set board from InputStream; set default if Input is not valid
@@ -470,6 +480,7 @@ public class Board implements Comparable<Board>{
             return GameStatus.GAME_DRAW;     // shouldn't be possible!
     }
 	
+
 	public boolean getPlayerOnTurn(){
 	    return this.onMove;
 	}
@@ -477,9 +488,10 @@ public class Board implements Comparable<Board>{
 	public int getMoveNumber(){
 	    return this.moveNumber;
 	}
-	
-	
-	@Override
+
+	public ArrayList<Figure> getBoard() {
+		return new ArrayList<Figure>(this.board);
+	}@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -515,5 +527,4 @@ public class Board implements Comparable<Board>{
             return 1;
         else
             return -1;
-    }
-}
+    }}
