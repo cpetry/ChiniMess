@@ -1,3 +1,4 @@
+package ChiniMess;
 // Copyright (c) 2012 Bart Massey <bart@cs.pdx.edu>
 // Licensed under the "MIT License"
 // Please see the file COPYING at http://github.com/BartMassey/imcs

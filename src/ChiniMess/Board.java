@@ -40,6 +40,14 @@ public class Board implements Comparable<Board>{
     	
     }
     
+    public Board(char inputTurn) {
+    	this();
+    	if (inputTurn == 'W')
+    		onMove = true; 
+    	else
+    		onMove = false;
+    }
+    
     /**
      * @brief Copy constructor
      */
