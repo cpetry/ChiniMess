@@ -8,7 +8,7 @@ import ChiniMess.Move;
 
 public class NegamaxPlayer extends Player{
 
-    protected Move best_move = null;
+    protected Move best_move;
     protected int start_depth;
     
     public NegamaxPlayer(){
@@ -20,12 +20,8 @@ public class NegamaxPlayer extends Player{
     }
     
     @Override
-    public Move chooseMove(Board b) {
-        ArrayList<Move> moves = b.genMoves();
-        System.out.println(moves);
-        
-        negamax(b, start_depth);
-        
+    public Move chooseMove(Board b) {        
+        int v = this.negamax(b, start_depth);
         return this.best_move;
     }
     
@@ -34,22 +30,26 @@ public class NegamaxPlayer extends Player{
         if (depth <= 0 || state.gameOver() != GameStatus.GAME_RUNNING)
             return state.calculateScore();
         
-        int value = 0;
         int best_value = -this.INF;
-        Board next_state = null;
         
         ArrayList<Move> moves = state.genMoves();
+       
+        Board b2 = new Board(state);
+        b2.executeMove(moves.get(0));
+        this.best_move = moves.get(0);
+        best_value =  b2.calculateScore();
         
         for (Move m : moves){
-            next_state = new Board(state); 
+            Board next_state = new Board(state); 
             next_state.executeMove(m);
             
-            value = -negamax(next_state, depth-1);
+            int value = -negamax(next_state, depth-1);
             if (value > best_value){
-                if (depth == start_depth)
-                    this.best_move = m;
                 best_value = value;
             }
+            
+            if (depth == start_depth)
+                this.best_move = m;
         }
         
         return best_value;

@@ -284,6 +284,57 @@ public class BoardTest{
 		assertFalse(false); //TODO: @useful testCase
 	}
 	
+	@Test
+	public void genMovesTest(){
+	    String input = "1 B \n"
+                + "k....\n"
+                + ".....\n"
+                + "..r..\n"
+                + "..P..\n"
+                + ".....\n"
+                + "....K\n";
+	    
+	    Board b = new Board(input);
+	    System.out.println(b.genMoves());
+	    assertTrue("[a1b1, a1a2, a1b2, c3c1, c3c2, c3a3, c3b3, c3d3, c3e3, c3c4]".equals(b.genMoves().toString()));
+	}
+	
+	@Test
+	public void calculateScoreTest(){
+	    String input = "1 B \n"
+                + "k....\n"
+                + ".....\n"
+                + ".....\n"
+                + "..Q..\n"
+                + ".....\n"
+                + "....K\n";
+        
+        Board b = new Board(input);
+        assertTrue(b.calculateScore() == -900);
+        
+        input =   "1 B \n"
+                + "k....\n"
+                + "..r..\n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + "....K\n";
+        
+        b = new Board(input);
+        assertTrue(b.calculateScore() == 500);
+        
+        input =   "1 B \n"
+                + "k....\n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + ".B...\n"
+                + "....K\n";
+        
+        b = new Board(input);
+        assertTrue(b.calculateScore() == -300);
+        
+	}
 	
 	//helper_methods
 	public String generateValidInput() {

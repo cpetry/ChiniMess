@@ -439,6 +439,10 @@ public class Board implements Comparable<Board>{
 	
 	public int calculateScore(){
         int white_score = 0, black_score = 0;
+        boolean white_king_alive = false, black_king_alive = false;
+        
+        if (this.gameOver() == GameStatus.GAME_DRAW)
+            return 0;
         
         for (int r = 0; r < this.HEIGHT; r++)
             for (int c = 0; c < this.WIDTH; c++){
@@ -446,16 +450,34 @@ public class Board implements Comparable<Board>{
                 Figure f = this.getFigureFromField(s);
                 
                 if (f != null){
+                    
+                    if (f instanceof King){
+                        if (f.getColor() == this.BLACK)
+                            black_king_alive = true;
+                        else
+                            white_king_alive = true;
+                    }
+                    
                     if (f.getColor() == this.BLACK)
                         black_score += f.getScore();
                     else
                         white_score += f.getScore();
                 }
             }
-        if (this.onMove == this.WHITE)
+        if (this.onMove == this.WHITE){
+            if (!black_king_alive)
+                return 10000;
+            if (!white_king_alive)
+                return -10000;
             return white_score - black_score;
-        else
+        }
+        else{
+            if (!white_king_alive)
+                return 10000;
+            if (!black_king_alive)
+                return -10000;
             return black_score - white_score;
+        }
     }
     
     public GameStatus gameOver(){
