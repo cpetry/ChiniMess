@@ -282,7 +282,7 @@ public class Board {
 			    this.setFigureToField(square_from, null);
 			    
 			    this.onMove = !this.onMove;  // change current player
-			    if (this.onMove)             // white players turn again
+			    if (this.onMove == this.WHITE)             // white players turn again
 			        this.moveNumber++;
 			    return true;
 			}

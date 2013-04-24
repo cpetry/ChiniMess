@@ -1,7 +1,5 @@
 package Figures;
 
-import ChiniMess.Move;
-
 public class Rook extends Figure{
 
     public Rook(boolean white) {

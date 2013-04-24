@@ -1,8 +1,5 @@
 package Figures;
 
-import ChiniMess.Move;
-import ChiniMess.Square;
-
 public class Queen extends Figure{
 
     public Queen(boolean white) {

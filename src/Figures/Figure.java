@@ -1,7 +1,6 @@
 package Figures;
 
 import ChiniMess.Move;
-import ChiniMess.Square;
 
 public abstract class Figure {
     protected boolean white;

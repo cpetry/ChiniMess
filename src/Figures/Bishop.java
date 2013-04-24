@@ -1,7 +1,5 @@
 package Figures;
 
-import ChiniMess.Move;
-
 public class Bishop extends Figure{
 
     public Bishop(boolean white) {
