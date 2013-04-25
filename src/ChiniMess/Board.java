@@ -438,9 +438,10 @@ public class Board implements Comparable<Board>{
 				Figure toFigure   = getFigureFromField(toSquare);       // figure on destination square
 				Figure fromFigure = getFigureFromField(fromSquare);     // figure on start square
 				Move m = new Move(fromSquare, toSquare);
-				if (toFigure == null  
-					|| (toFigure.getColor() != fromFigure.getColor() && fromFigure.canExecuteCapture(m))   // free square or figure of other team?
-				    || (fromFigure.canExecuteMove(m)  && m.pathIsFree(this))) {       // can figure execute move?
+				if(fromFigure != null 
+			            && ((fromFigure.canExecuteMove(m) && toFigure == null) 
+			             || (fromFigure.canExecuteCapture(m) && toFigure != null && toFigure.getColor() != fromFigure.getColor()))
+			            && (fromFigure.canJump() || m.pathIsFree(this))) {
 				        possibleMoves.add(new Move(fromSquare, toSquare));
 				}
 			}

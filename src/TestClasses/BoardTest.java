@@ -311,16 +311,16 @@ public class BoardTest{
 	@Test
 	public void genMovesTest(){
 	    String input = "1 B \n"
-                + "k....\n"
                 + ".....\n"
-                + "..r..\n"
+                + ".....\n"
+                + "..p..\n"
                 + "..P..\n"
                 + ".....\n"
-                + "....K\n";
+                + ".....\n";
 	    
 	    Board b = new Board(input);
-	    //System.out.println(b.genMoves());
-	    assertTrue("[c4-c3, c4-a4, c4-b4, c4-d4, c4-e4, c4-c5, c4-c6, a6-a5, a6-b5, a6-b6]".equals(b.genMoves().toString()));
+	    //System.out.println("genMovesTest: " + b.genMoves());
+	    assertTrue("[]".equals(b.genMoves().toString()));
 	    
 	    
 	    input = "1 B \n"
@@ -344,7 +344,7 @@ public class BoardTest{
                 + "....K\n";
         
         b = new Board(input);
-        System.out.println(b.genMoves());
+        //System.out.println(b.genMoves());
         assertTrue("[d2-d1, d2-e1]".equals(b.genMoves().toString()));
         
         input = "1 B \n"
@@ -356,8 +356,8 @@ public class BoardTest{
                 + "..Q.K\n";
         
         b = new Board(input);
-        System.out.println(b.genMoves());
-        assertTrue("[d2-d1, d2-e1, d2-c1]".equals(b.genMoves().toString()));
+        //System.out.println(b.genMoves());
+        assertTrue("[d2-c1, d2-d1, d2-e1]".equals(b.genMoves().toString()));
 	}
 	
 	@Test
