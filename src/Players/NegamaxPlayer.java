@@ -83,7 +83,8 @@ public class NegamaxPlayer extends Player{
         if (pawn_transformed)
             b.setFigureToField(m.getFrom(), new Pawn(b.getFigureFromField(m.getFrom()).getColor()));
         
-        b.setMoveNumber(b.getMoveNumber() - 1);
+        if (b.getPlayerOnTurn() == Board.BLACK)
+        	b.setMoveNumber(b.getMoveNumber() - 1);
         b.setFigureToField(m.getTo(), thrownFigure);
     }
 }

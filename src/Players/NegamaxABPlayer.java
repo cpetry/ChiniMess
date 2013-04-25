@@ -14,7 +14,7 @@ import Figures.Figure;
 public class NegamaxABPlayer extends NegamaxPlayer{
 
     long start_time, maximum_time, time_spent;
-    int start_depth;
+    int start_depth, end_depth, move_depth;
     int time_counter;
     boolean timeover;
     
@@ -26,49 +26,35 @@ public class NegamaxABPlayer extends NegamaxPlayer{
         this.time_counter = 0;
         this.timeover = false;
         this.start_time = System.currentTimeMillis();
-        int start_depth = 2;
+        this.start_depth = 2;
+        this.end_depth = this.INF;
         ArrayList<Move> moves = b.genMoves();
         Move m = moves.get(0);
         while(true){
             Board negamaxboard = new Board(b);
             Move m_test = best_move(negamaxboard, start_depth);
             if (this.timeover)
-                return m;
-            m = m_test;
-            start_depth = start_depth + 1;
+                return m;            
+            if (m_test != null)
+            	m = m_test;
+
+            start_depth++;
         }
     }
     
-    private int negamax(Board state, int depth, int beta, int alpha){
-        if (state.gameOver() != GameStatus.GAME_RUNNING || depth == 0)
-           return state.calculateScore();
-        
-        int v = -this.INF;
+    private int negamax(Board state, int depth, int alpha, int beta){
+    	
+    	GameStatus game_status = state.gameOver();
+        if (game_status != GameStatus.GAME_RUNNING || depth == 0){
+        	this.move_depth = this.start_depth - depth;
+            return state.calculateScore();
+        }
+    	
+        int v = alpha;
         ArrayList<Move> moves = state.genMoves();
         
         for (Move m : moves){
-            
-            Figure thrownFigure = null;
-            boolean pawn_transformed = false;
-            this.do__move(state, m, thrownFigure, pawn_transformed);
-            
-            if (state.gameOver() != GameStatus.GAME_RUNNING || depth == 0)
-               return -state.calculateScore();
-            
-            int v0 = -negamax(state, depth-1, -beta, -alpha);
-           
-            this.undo__move(state, m, thrownFigure, pawn_transformed);
-           
-            if (v0 > v){
-                v = v0;
-            }
-                
-            alpha = Math.max(alpha, v);
-            if (v >= beta){
-               return v;
-            }
-            
-            this.time_counter++;
+        	this.time_counter++;
             
             if (this.time_counter > 100){
                 //System.out.println("time counter");
@@ -78,9 +64,25 @@ public class NegamaxABPlayer extends NegamaxPlayer{
                 if (this.time_spent > this.maximum_time){
                     //System.out.println("Time over!");
                     this.timeover = true;
-                    return 0;
+                    return v;
                 }
             }
+            
+            Figure thrownFigure = null;
+            boolean pawn_transformed = false;
+            this.do__move(state, m, thrownFigure, pawn_transformed);
+            
+            int v0 = Math.max(v, -negamax(state, depth-1, -beta, -alpha));
+           
+            this.undo__move(state, m, thrownFigure, pawn_transformed);
+           
+            v = Math.max(v0 , v);
+            
+            if (v >= beta){
+                return v;
+            }
+                
+            
         }
         return v;    
     }
@@ -90,29 +92,26 @@ public class NegamaxABPlayer extends NegamaxPlayer{
         int v = -this.INF;
         int a0 = -this.INF;
         Move m0 = null;
-                
+        
         for (Move m : moves){
-            
+        	this.move_depth = this.INF;
             Figure thrownFigure = null;
             boolean pawn_transformed = false;
             this.do__move(state, m, thrownFigure, pawn_transformed);
             
-            int v0=0;
+            int v0 = -negamax(state, depth, -this.INF, -a0);
             
-            if (state.gameOver() != GameStatus.GAME_RUNNING)
-                v0 = -state.calculateScore();
-            else
-                v0 = -negamax(state, depth, -this.INF, -a0);
-            
-            this.undo__move(state, m, thrownFigure, pawn_transformed);
-            //next_state.executeMove(new Move(m.getTo(), m.getFrom()));
-            
+            this.undo__move(state, m, thrownFigure, pawn_transformed);            
             
             a0 = Math.max(a0, v0);
-            if (v0 > v){
-                v = v0;
-                m0 = m;
-                System.out.println("BestMove: " + m0);
+            if (v0 >= v){
+            	v = v0;
+                if (this.move_depth <= this.end_depth){
+                	end_depth = move_depth;
+                	m0 = m;
+                	System.out.println("BestMove: " + m0);
+                }
+                
             }
             
             if (this.timeover)

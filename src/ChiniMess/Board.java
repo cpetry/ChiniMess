@@ -439,10 +439,10 @@ public class Board implements Comparable<Board>{
 				Figure fromFigure = getFigureFromField(fromSquare);     // figure on start square
 				Move m = new Move(fromSquare, toSquare);
 				if(fromFigure != null 
-			            && ((fromFigure.canExecuteMove(m) && toFigure == null) 
-			             || (fromFigure.canExecuteCapture(m) && toFigure != null && toFigure.getColor() != fromFigure.getColor()))
-			            && (fromFigure.canJump() || m.pathIsFree(this))) {
-				        possibleMoves.add(new Move(fromSquare, toSquare));
+			     && ((fromFigure.canExecuteMove(m) && toFigure == null) 
+			     || (fromFigure.canExecuteCapture(m) && toFigure != null && toFigure.getColor() != fromFigure.getColor()))
+			     && (fromFigure.canJump() || m.pathIsFree(this))) {
+				        possibleMoves.add(m);
 				}
 			}
 		}
@@ -481,16 +481,16 @@ public class Board implements Comparable<Board>{
                 }
             }
         if (this.onMove == this.WHITE){
-            if (!black_king_alive)
-                return 10000;
-            else if (!white_king_alive)
+            if (!black_king_alive)	// black king dead
+                return 10001;
+            else if (!white_king_alive) // white king dead
                 return -10000;
             else
                 return white_score - black_score;
         }
         else{
             if (!white_king_alive)
-                return 10000;
+                return 10001;
             else if (!black_king_alive)
                 return -10000;
             else
