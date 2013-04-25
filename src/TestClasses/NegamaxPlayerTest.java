@@ -26,7 +26,7 @@ public class NegamaxPlayerTest {
         Board b = new Board(input);
         //System.out.println(b.genMoves());
         Move m = p.chooseMove(b);
-        //System.out.println("chosen move: " + m);
+        System.out.println("chosen move: " + m);
         assertTrue(new Move("c4b4").equals(m));
         
         input = "1 W \n"

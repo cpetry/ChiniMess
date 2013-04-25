@@ -39,18 +39,20 @@ public class NegamaxPlayer extends Player{
         int best_value = -this.INF;
         
         for (Move m : moves){
-            Board next_state = new Board(state); 
-            next_state.executeMove(m);
+            Figure thrownFigure = null;
+            boolean pawn_transformed = false;
+            this.do__move(state, m, thrownFigure, pawn_transformed);
             
             //System.out.println(state);
             //Figure thrownFigure = this.do__move(state, m);
             
             
             //int value = -negamax(state, depth-1);
-            int value = -negamax(next_state, depth-1);
+            int value = -negamax(state, depth-1);
             
-            //this.undo__move(state, m, thrownFigure);
             
+            this.undo__move(state, m, thrownFigure, pawn_transformed);
+
             //System.out.println(state);
             
             if (value > best_value){
