@@ -22,82 +22,51 @@ public class NegamaxABPlayer extends NegamaxPlayer{
     
     public Move chooseMove(Board b) {
         start_time = System.currentTimeMillis();
-        int d = 1;
-        Move m = best_move(b, 0);
-        
-        while(true){
-            Move m_next = best_move(b, d);
-            if (System.currentTimeMillis() - start_time > maximum_time){
-                return m;
-            }
-            m = m_next;
-            d = d + 1;
-        }
+        Move m = best_move(b, this.depth);
+        return m;
     }
     
     private int negamax(Board state, int depth, int beta, int alpha){
-        if (depth == 0)
-            return state.calculateScore();
+       if (state.gameOver() != GameStatus.GAME_RUNNING || depth == 0)
+           return state.calculateScore();
         
-        ArrayList<Board> next_states = new ArrayList<Board>();
-        
-        for (Move m : state.genMoves()){
-            Board next_state = new Board(state);
-            next_state.executeMove(m);
-            next_states.add(next_state);
-        }
-        
-        // sort reverse order because best one should be first!
-        Collections.sort(next_states); 
-        
-        /*System.out.println("test");
-        for (Board test : next_states){
-            System.out.println(test.calculateScore());
-        }*/
-        
-        int score = 0;
-        
-        for (Board next_state : next_states){
-            if (next_state.gameOver() != GameStatus.GAME_RUNNING){
-                if (next_state.gameOver() == GameStatus.GAME_DRAW)
-                    score = 0;
-                else if ((next_state.gameOver() == GameStatus.GAME_WHITEWINS
-                        && next_state.getPlayerOnTurn() == Board.WHITE)
-                        || (next_state.gameOver() == GameStatus.GAME_BLACKWINS
-                        && next_state.getPlayerOnTurn() == Board.BLACK))
-                    score = -this.INF;
-                else
-                    score = this.INF;
-            }
-            else
-                score = -negamax(next_state, depth-1, -beta, -alpha);
-            
-            if (score > beta)
-               return score;
-            if (score > alpha)
-               alpha = score;
-        }
-        return alpha;
-    }
+        int v = -this.INF;
+       ArrayList<Move> moves = state.genMoves();
+       for (Move m : moves){
+           Board next_state = new Board(state);
+           next_state.executeMove(m);
+           v = Math.max(v, -negamax(next_state, depth-1, -beta, -alpha));
+           
+           //state.executeMove(new Move(m.getTo(), m.getFrom()));
+           
+           alpha = Math.max(alpha, v);
+           if (v>= beta)
+               return v;
+       }
+       return v;    }
     
     private Move best_move(Board state, int depth){
-        int a0 = -this.INF;
-        int b0 = this.INF;
-        
-        int score = 0;
+        int d0 = 1;
         ArrayList<Move> moves = state.genMoves();
-        Move m0 = null;
-        for (Move m : moves){
-            Board next_state = new Board(state);
-            next_state.executeMove(m);
-            score = -negamax(next_state, depth, -b0, -a0); 
-            if (score > a0){
-                m0 = m;
-                a0 = score;
+        Move m0 = moves.get(0);
+        while(System.currentTimeMillis() - start_time < maximum_time){
+            int v = -this.INF;
+            int a0 = -this.INF;
+            for (Move m : moves){
+                
+                Board next_state = new Board(state);
+                next_state.executeMove(m);
+                int v0 = Math.max(v, -negamax(next_state, d0, -this.INF, -a0));
+                
+                //next_state.executeMove(new Move(m.getTo(), m.getFrom()));
+                
+                a0 = Math.max(a0, v0);
+                if (v0 >= v)
+                    m0 = m;
+                v = Math.max(v,v0);
             }
+            d0 = d0 + 1;
         }
-        //System.out.println("highest value: " + score);
-        
         return m0;
     }
 }

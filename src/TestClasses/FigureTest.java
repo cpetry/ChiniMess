@@ -116,7 +116,7 @@ public class FigureTest {
         Move m = new Move("a1b2"); // moving diagonal right-downwards
         
         assertFalse(pw.canExecuteMove(m)); 
-        assertTrue(pb.canExecuteMove(m));   // only if an enemy is at destination!
+        assertFalse(pb.canExecuteMove(m));
         assertFalse(r.canExecuteMove(m));
         assertFalse(n.canExecuteMove(m));
         assertTrue(b.canExecuteMove(m)); 
@@ -126,7 +126,7 @@ public class FigureTest {
         m = new Move("c3d4");       // moving diagonal left-downwards
         
         assertFalse(pw.canExecuteMove(m));   
-        assertTrue(pb.canExecuteMove(m));   // only if an enemy is at destination!
+        assertFalse(pb.canExecuteMove(m));  
         assertFalse(r.canExecuteMove(m));
         assertFalse(n.canExecuteMove(m));
         assertTrue(b.canExecuteMove(m));
@@ -135,7 +135,7 @@ public class FigureTest {
         
         m = new Move("b3a2");       // moving diagonal left-upwards
         
-        assertTrue(pw.canExecuteMove(m));   // only if an enemy is at destination!
+        assertFalse(pw.canExecuteMove(m));   
         assertFalse(pb.canExecuteMove(m));
         assertFalse(r.canExecuteMove(m));
         assertFalse(n.canExecuteMove(m));
@@ -145,7 +145,7 @@ public class FigureTest {
         
         m = new Move("b3c2");       // moving diagonal right-upwards
         
-        assertTrue(pw.canExecuteMove(m));   // only if an enemy is at destination!
+        assertFalse(pw.canExecuteMove(m));  
         assertFalse(pb.canExecuteMove(m));
         assertFalse(r.canExecuteMove(m));
         assertFalse(n.canExecuteMove(m));
