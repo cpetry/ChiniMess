@@ -44,7 +44,7 @@ public class NegamaxPlayer extends Player{
             this.do__move(state, m, thrownFigure, pawn_transformed);
             
             if (state.gameOver() != GameStatus.GAME_RUNNING)
-                return state.calculateScore();
+                return -state.calculateScore();
             
             int value = -negamax(state, depth - 1);
             

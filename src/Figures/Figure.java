@@ -9,6 +9,7 @@ public abstract class Figure {
     protected int score;
     
     public Figure(boolean white){
+        this.score = 0;
         this.white = white;
         this.canJump = false;   //normally no one can jump (except knight)
     }

@@ -20,12 +20,53 @@ public class NegamaxABPlayerTest {
                 + "...p.\n"
                 + "....K\n";
         Player p = new NegamaxABPlayer(2000);
-        p = new GreedyPlayer();
         Board b = new Board(input);
         //System.out.println(b.genMoves());
         Move m = p.chooseMove(b);
-        //System.out.println(m);
+        //System.out.println("chosen move: " + m);
         assertTrue(new Move("d2-e1").equals(m));
+        
+        input = "1 W \n"
+                + "....k\n"
+                + ".....\n"
+                + ".rQ..\n"
+                + ".....\n"
+                + ".....\n"
+                + "....K\n";
+        p = new NegamaxABPlayer(2000);
+        b = new Board(input);
+        
+        m = p.chooseMove(b);
+        System.out.println(b.genMoves());
+        System.out.println("chosen move: " + m);
+        assertTrue(new Move("c4e6").equals(m));
+        
+        input = "1 B \n"
+                + "...k.\n"
+                + ".....\n"
+                + "..r..\n"
+                + "...Q.\n"
+                + ".P...\n"
+                + "....K\n";
+        p = new NegamaxABPlayer(2000);
+        b = new Board(input);
+        m = p.chooseMove(b);
+        //System.out.println("chosen move: " + m);
+        assertTrue(new Move("d6c5").equals(m));
+        
+        
+        input = "1 B \n"
+                + "...k.\n"
+                + ".....\n"
+                + "..rp.\n"
+                + "...Q.\n"
+                + ".P...\n"
+                + "....K\n";
+        p = new NegamaxABPlayer(2000);
+        b = new Board(input);
+        m = p.chooseMove(b);
+        //System.out.println("chosen move: " + m);
+        assertTrue(new Move("c4c1").equals(m));
     }
 
 }

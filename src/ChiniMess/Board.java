@@ -477,21 +477,24 @@ public class Board implements Comparable<Board>{
                         black_score += f.getScore();
                     else
                         white_score += f.getScore();
+                    
                 }
             }
         if (this.onMove == this.WHITE){
             if (!black_king_alive)
                 return 10000;
-            if (!white_king_alive)
+            else if (!white_king_alive)
                 return -10000;
-            return white_score - black_score;
+            else
+                return white_score - black_score;
         }
         else{
             if (!white_king_alive)
                 return 10000;
-            if (!black_king_alive)
+            else if (!black_king_alive)
                 return -10000;
-            return black_score - white_score;
+            else
+                return black_score - white_score;
         }
     }
     

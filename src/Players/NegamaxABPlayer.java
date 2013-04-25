@@ -52,13 +52,17 @@ public class NegamaxABPlayer extends NegamaxPlayer{
             boolean pawn_transformed = false;
             this.do__move(state, m, thrownFigure, pawn_transformed);
             
-            if (state.gameOver() != GameStatus.GAME_RUNNING)
-                return -state.calculateScore();
+            if (state.gameOver() != GameStatus.GAME_RUNNING || depth == 0)
+               return -state.calculateScore();
             
-            v = Math.max(v, -negamax(state, depth-1, -beta, -alpha));
+            int v0 = -negamax(state, depth-1, -beta, -alpha);
            
             this.undo__move(state, m, thrownFigure, pawn_transformed);
            
+            if (v0 > v){
+                v = v0;
+            }
+                
             alpha = Math.max(alpha, v);
             if (v >= beta){
                return v;
@@ -74,7 +78,7 @@ public class NegamaxABPlayer extends NegamaxPlayer{
                 if (this.time_spent > this.maximum_time){
                     //System.out.println("Time over!");
                     this.timeover = true;
-                    return -this.INF;
+                    return 0;
                 }
             }
         }
@@ -93,11 +97,12 @@ public class NegamaxABPlayer extends NegamaxPlayer{
             boolean pawn_transformed = false;
             this.do__move(state, m, thrownFigure, pawn_transformed);
             
-            if (state.gameOver() != GameStatus.GAME_RUNNING){
-                return m0;
-            }
+            int v0=0;
             
-            int v0 = Math.max(v, -negamax(state, depth, -this.INF, -a0));
+            if (state.gameOver() != GameStatus.GAME_RUNNING)
+                v0 = -state.calculateScore();
+            else
+                v0 = -negamax(state, depth, -this.INF, -a0);
             
             this.undo__move(state, m, thrownFigure, pawn_transformed);
             //next_state.executeMove(new Move(m.getTo(), m.getFrom()));
@@ -107,6 +112,7 @@ public class NegamaxABPlayer extends NegamaxPlayer{
             if (v0 > v){
                 v = v0;
                 m0 = m;
+                System.out.println("BestMove: " + m0);
             }
             
             if (this.timeover)
