@@ -92,7 +92,7 @@ public class BoardTest{
                      
         dummyBoard = new Board(input);
         Figure k = dummyBoard.getFigureFromField(new Square(0, 5));   
-        System.out.println(dummyBoard);
+        //System.out.println(dummyBoard);
         Figure q = dummyBoard.getFigureFromField(new Square(1, 5));  
         Figure b = dummyBoard.getFigureFromField(new Square(2, 5));
 
@@ -299,7 +299,7 @@ public class BoardTest{
 	    
 	    Board b = new Board(input);
 	    //System.out.println(b.genMoves());
-	    assertTrue("[! a1-b1, ! a1-a2, ! a1-b2, ! c3-c1, ! c3-c2, ! c3-a3, ! c3-b3, ! c3-d3, ! c3-e3, ! c3-c4]".equals(b.genMoves().toString()));
+	    assertTrue("[c4-c3, c4-a4, c4-b4, c4-d4, c4-e4, c4-c5, c4-c6, a6-a5, a6-b5, a6-b6]".equals(b.genMoves().toString()));
 	}
 	
 	@Test

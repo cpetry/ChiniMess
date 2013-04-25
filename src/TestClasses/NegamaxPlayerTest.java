@@ -24,8 +24,8 @@ public class NegamaxPlayerTest {
         Board b = new Board(input);
         //System.out.println(b.genMoves());
         Move m = p.chooseMove(b);
-        //System.out.println("chosen move" + m);
-        assertTrue(new Move("c3a1").equals(m));
+        //System.out.println("chosen move: " + m);
+        assertTrue(new Move("c4b4").equals(m));
         
         input = "1 W \n"
                 + "...k.\n"
@@ -37,8 +37,8 @@ public class NegamaxPlayerTest {
         p = new NegamaxPlayer(2);
         b = new Board(input);
         m = p.chooseMove(b);
-        System.out.println("chosen move" + m);
-        assertTrue(new Move("c3b3").equals(m));
+        //System.out.println("chosen move: " + m);
+        assertTrue(new Move("c4b4").equals(m));
         
         input = "1 B \n"
                 + "...k.\n"
@@ -50,8 +50,8 @@ public class NegamaxPlayerTest {
         p = new NegamaxPlayer(4);
         b = new Board(input);
         m = p.chooseMove(b);
-        //System.out.println("chosen move" + m);
-        assertTrue(new Move("d1c2").equals(m));
+        //System.out.println("chosen move: " + m);
+        assertTrue(new Move("d6c5").equals(m));
         
         
         input = "1 B \n"
@@ -64,8 +64,8 @@ public class NegamaxPlayerTest {
         p = new NegamaxPlayer(4);
         b = new Board(input);
         m = p.chooseMove(b);
-        //System.out.println("chosen move" + m);
-        assertTrue(new Move("c3c6").equals(m));
+        //System.out.println("chosen move: " + m);
+        assertTrue(new Move("c4c1").equals(m));
     }
 
 }
