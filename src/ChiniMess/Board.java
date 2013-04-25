@@ -301,9 +301,11 @@ public class Board implements Comparable<Board>{
 			&& (fromFigure.canJump() || m.pathIsFree(this))) {
 			    
 			    // if a Pawn gets to the other side -> make it a Queen
-			    if ( (fromFigure instanceof Pawn && fromFigure.getColor() == this.WHITE && square_to.getRow() == 0)
-			      || (fromFigure instanceof Pawn && fromFigure.getColor() == this.BLACK && square_to.getRow() == this.HEIGHT))
+			    if ( (fromFigure instanceof Pawn && fromFigure.getColor() == this.WHITE && square_to.getRow() == this.HEIGHT-1)
+			      || (fromFigure instanceof Pawn && fromFigure.getColor() == this.BLACK && square_to.getRow() == 0)){
+			        //System.out.println("Pawn -> Queen");
 			        fromFigure = new Queen(fromFigure.getColor());
+			    }
 			    
 			    this.setFigureToField(square_to, fromFigure);
 			    this.setFigureToField(square_from, null);
@@ -528,6 +530,11 @@ public class Board implements Comparable<Board>{
 	public int getMoveNumber(){
 	    return this.moveNumber;
 	}
+	
+	public void setMoveNumber(int number){
+        if (number > 0 && number < 40)
+            this.moveNumber = number;
+    }
 
 	public ArrayList<Figure> getBoard() {
 		return new ArrayList<Figure>(this.board);

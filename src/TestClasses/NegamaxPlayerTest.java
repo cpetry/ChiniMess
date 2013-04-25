@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import ChiniMess.Board;
 import ChiniMess.Move;
+import ChiniMess.Square;
+import Figures.Figure;
 import Players.NegamaxPlayer;
 import Players.Player;
 
@@ -66,6 +68,54 @@ public class NegamaxPlayerTest {
         m = p.chooseMove(b);
         //System.out.println("chosen move: " + m);
         assertTrue(new Move("c4c1").equals(m));
+    }
+    
+    @Test
+    public void do_undo_test() {
+        String input = "1 B \n"
+                + "...k.\n"
+                + ".....\n"
+                + "..r..\n"
+                + "...Q.\n"
+                + ".P...\n"
+                + "....K\n";
+        NegamaxPlayer p = new NegamaxPlayer(4);
+        Board copy = new Board(input);
+        Board b = new Board(input);
+        
+        Move m = p.chooseMove(b);
+        
+        Figure thrownFigure = null;
+        boolean pawn_transformed = false;
+        p.do__move(b, m, thrownFigure, pawn_transformed);
+        p.undo__move(b, m, thrownFigure, pawn_transformed);
+        
+        
+        //System.out.println("chosen move: " + m);
+        //System.out.println(b);
+        //System.out.println(copy);
+        assertTrue(b.equals(copy));
+        
+        
+        input = "1 B \n"
+                + "...k.\n"
+                + "P....\n"
+                + "..r..\n"
+                + "...Q.\n"
+                + ".P...\n"
+                + "....K\n";
+        p = new NegamaxPlayer(4);
+        copy = new Board(input);
+        b = new Board(input);
+        
+        m = new Move("a5a6");
+          
+        thrownFigure = null;
+        pawn_transformed = false;
+        p.do__move(b, m, thrownFigure, pawn_transformed);
+        
+        p.undo__move(b, m, thrownFigure, pawn_transformed);
+        assertTrue(b.equals(copy));
     }
 
 }

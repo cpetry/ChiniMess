@@ -28,12 +28,12 @@ public class NegamaxABPlayer extends NegamaxPlayer{
     }
     
     private int negamax(Board state, int depth, int beta, int alpha){
-       if (state.gameOver() != GameStatus.GAME_RUNNING || depth == 0)
+        if (state.gameOver() != GameStatus.GAME_RUNNING || depth == 0)
            return state.calculateScore();
         
         int v = -this.INF;
-       ArrayList<Move> moves = state.genMoves();
-       for (Move m : moves){
+        ArrayList<Move> moves = state.genMoves();
+        for (Move m : moves){
            Board next_state = new Board(state);
            next_state.executeMove(m);
            v = Math.max(v, -negamax(next_state, depth-1, -beta, -alpha));
@@ -43,8 +43,8 @@ public class NegamaxABPlayer extends NegamaxPlayer{
            alpha = Math.max(alpha, v);
            if (v>= beta)
                return v;
-       }
-       return v;    }
+        }
+        return v;    }
     
     private Move best_move(Board state, int depth){
         int d0 = 1;
@@ -54,11 +54,14 @@ public class NegamaxABPlayer extends NegamaxPlayer{
             int v = -this.INF;
             int a0 = -this.INF;
             for (Move m : moves){
-                Figure thrownFigure = this.do__move(state, m);
+                
+                Figure thrownFigure = null;
+                boolean pawn_transformed = false;
+                this.do__move(state, m, thrownFigure, pawn_transformed);
                 
                 int v0 = Math.max(v, -negamax(state, d0, -this.INF, -a0));
                 
-                this.undo__move(state, m, thrownFigure);
+                this.undo__move(state, m, thrownFigure, pawn_transformed);
                 //next_state.executeMove(new Move(m.getTo(), m.getFrom()));
                 
                 a0 = Math.max(a0, v0);

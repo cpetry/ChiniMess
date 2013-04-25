@@ -6,6 +6,8 @@ import ChiniMess.Board;
 import ChiniMess.GameStatus;
 import ChiniMess.Move;
 import Figures.Figure;
+import Figures.Pawn;
+import Figures.Queen;
 
 public class NegamaxPlayer extends Player{
 
@@ -63,14 +65,22 @@ public class NegamaxPlayer extends Player{
         return best_value;
     }
     
-    protected Figure do__move(Board b, Move m){
-        Figure thrownFigure = b.getFigureFromField(m.getTo());
+    public void do__move(Board b, Move m, Figure thrownFigure, boolean pawn_transformed){
+        thrownFigure = b.getFigureFromField(m.getTo());
+        Figure movingFigure = b.getFigureFromField(m.getFrom());
         b.executeMove(m);
-        return thrownFigure;
+        Figure movedFigure = b.getFigureFromField(m.getTo());
+        if (movingFigure instanceof Pawn && movedFigure instanceof Queen) // Pawn changed into Queen
+            pawn_transformed = true;
+        else
+            pawn_transformed = false;
     }
     
-    protected void undo__move(Board b, Move m, Figure f){
+    public void undo__move(Board b, Move m, Figure thrownFigure, boolean pawn_transformed){
         b.executeMove(new Move(m.getTo(), m.getFrom()));
-        b.setFigureToField(m.getTo(), f);
+        if (pawn_transformed)
+            b.setFigureToField(m.getFrom(), new Pawn(b.getFigureFromField(m.getFrom()).getColor()));
+        b.setMoveNumber(b.getMoveNumber() - 1);
+        b.setFigureToField(m.getTo(), thrownFigure);
     }
 }
