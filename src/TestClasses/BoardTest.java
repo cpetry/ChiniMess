@@ -334,6 +334,28 @@ public class BoardTest{
         b = new Board(input);
         assertTrue(b.calculateScore() == -300);
         
+        input =   "1 B \n"
+                + "Q....\n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + ".B...\n"
+                + "....K\n";
+        
+        b = new Board(input);
+        assertTrue(b.calculateScore() == -10000);   // black player loses
+        
+        input =   "1 W \n"
+                + "Q....\n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + ".B...\n"
+                + "....K\n";
+        
+        b = new Board(input);
+        assertTrue(b.calculateScore() == 10000);   // black player loses
+        
 	}
 	
 	//helper_methods
