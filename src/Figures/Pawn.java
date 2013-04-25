@@ -16,8 +16,8 @@ public class Pawn extends Figure{
         if (dr == 0 && dc == 0) // not moving at all
             return false;    
         
-        else if ((this.white && dr == -1 && dc == 0)    // forward for white
-                || (!this.white && dr == 1 && dc == 0)) // forward for black
+        else if ((this.white && dr == 1 && dc == 0)    // forward for white
+                || (!this.white && dr == -1 && dc == 0)) // forward for black
             return true;
             
         return false;
@@ -26,8 +26,8 @@ public class Pawn extends Figure{
     public boolean canCapture(int dr, int dc){
         if (dr == 0 && dc == 0) // not moving at all
             return false;
-        else if ((this.white && dr == -1 && Math.abs(dc) == 1)     // diagonal forward for white
-              || (!this.white && dr == 1 && Math.abs(dc) == 1))     // diagonal forward for black
+        else if ((this.white && dr == 1 && Math.abs(dc) == 1)     // diagonal forward for white
+              || (!this.white && dr == -1 && Math.abs(dc) == 1))     // diagonal forward for black
             return true;
         return false;
     }

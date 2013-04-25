@@ -35,11 +35,11 @@ public class MoveTest {
     
     @Test
     public void equalToString(){      
-        assertEquals(new Move("a1e6").toString(), "! a1-e6");
-        assertEquals(new Move("b2d5").toString(), "! b2-d5");
-        assertEquals(new Move("c3c4").toString(), "! c3-c4");
-        assertEquals(new Move("d4b3").toString(), "! d4-b3");
-        assertEquals(new Move("e5a2").toString(), "! e5-a2");
+        assertEquals(new Move("a1e6").toString(), "a1-e6");
+        assertEquals(new Move("b2d5").toString(), "b2-d5");
+        assertEquals(new Move("c3c4").toString(), "c3-c4");
+        assertEquals(new Move("d4b3").toString(), "d4-b3");
+        assertEquals(new Move("e5a2").toString(), "e5-a2");
     }
     
     @Test
@@ -108,7 +108,7 @@ public class MoveTest {
     	assertTrue(m.pathIsFree(board));
       	m = new Move("d5d2");
     	assertTrue(m.pathIsFree(board));
-       	m = new Move("b6b3"); //special Knight move
+       	m = new Move("b1b3"); //special Knight move
     	assertTrue(m.pathIsFree(board));
       	m = new Move("e5e3");
     	assertTrue(m.pathIsFree(board));	//end move on Y-axis
@@ -156,18 +156,18 @@ public class MoveTest {
     	assertTrue(m.pathIsFree(board));
     	m = new Move("a2b2");
     	assertTrue(m.pathIsFree(board));
-    	m = new Move("a4e4");
+    	m = new Move("a3e3");
     	assertTrue(m.pathIsFree(board));
-      	m = new Move("d5c5");
+      	m = new Move("d2c2");
     	assertTrue(m.pathIsFree(board));
-      	m = new Move("d5b5");
+      	m = new Move("d2b2");
     	assertTrue(m.pathIsFree(board));
        
     	board = new Board();
     	
     	m = new Move("a1a2"); 			//move on Y-axis
     	assertFalse(m.pathIsFree(board));
-    	m = new Move("b1b3");
+    	m = new Move("b6b4");
     	assertFalse(m.pathIsFree(board));
     	m = new Move("a2a6");
     	assertFalse(m.pathIsFree(board));
@@ -175,7 +175,7 @@ public class MoveTest {
     	assertFalse(m.pathIsFree(board));
     	m = new Move("c5c1");
     	assertFalse(m.pathIsFree(board));
-    	m = new Move("d6d3");
+    	m = new Move("d1d4");
     	assertFalse(m.pathIsFree(board));
     	m = new Move("e1e6");
     	assertFalse(m.pathIsFree(board));

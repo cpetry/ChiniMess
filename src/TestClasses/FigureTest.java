@@ -78,7 +78,7 @@ public class FigureTest {
         King k = new King(true);        // white King
         
         
-        Move m = new Move("a2a1"); // moving straight upwards
+        Move m = new Move("a1a2"); // moving straight upwards
         
         assertTrue(pw.canExecuteMove(m));
         assertFalse(pb.canExecuteMove(m));
