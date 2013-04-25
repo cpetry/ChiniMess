@@ -33,6 +33,9 @@ public class HumanPlayer extends Player{
 		
 		move_list = b.genMoves();
 		console = new BufferedReader(new InputStreamReader(System.in));
+		numbers = 0;
+		move_string   = "";
+		number_string = "";
 		
 		for(Move m: move_list){
 			number_string += numbers+"\t";

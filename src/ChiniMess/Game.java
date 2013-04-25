@@ -13,8 +13,8 @@ public class Game {
     public static void main(String[] args) {
     	//System.out.println(convertBlackMove(new Move("b6-c4")));
     	//playLocalGame();
-    	playNetworkGameAsServer();
-    	playNetworkGameAsClient("1234=id");
+    	//playNetworkGameAsServer();
+    	playNetworkGameAsClient("6607");
     }  
     /**
      * @brief play ChiniMess local game
@@ -25,8 +25,8 @@ public class Game {
 	        GameStatus status = GameStatus.GAME_RUNNING;
 	        System.out.println(b);
 	        
-	        Player White_Player   = new NegamaxABPlayer(500);
-	        Player Black_Player   = new NegamaxPlayer(2);
+	        Player White_Player   = new HumanPlayer();
+	        Player Black_Player   = new HumanPlayer();
 	        
 	        while(status == GameStatus.GAME_RUNNING){
 	            Move m;
@@ -67,7 +67,7 @@ public class Game {
 		    	Board b = new Board('W'); // normal standard Board
 		        GameStatus status = GameStatus.GAME_RUNNING;
 
-		        Player localPlayer   = new RandomPlayer();
+		        Player localPlayer   = new NegamaxPlayer(5);
 		        
 		        while(status == GameStatus.GAME_RUNNING){
 		            Move m;
@@ -81,10 +81,16 @@ public class Game {
 		            }		            
 		            b.executeMove(m);
 		            status = b.gameOver();
-		            System.out.println(b);
+		            /*System.out.println(b);
 		            System.out.println("picked Move:" + m);
-		            System.out.println("Score: " + b.calculateScore());
-		            b.setTurn(!b.getPlayerOnTurn());
+		            System.out.println("Score: " + b.calculateScore()); */
+		            //b.setTurn(!b.getPlayerOnTurn());
+		            
+		            System.out.println("local Board: \n");
+		            System.out.println(b);
+		            System.out.println("----------------------");
+		            System.out.println("network Board: \n");
+		            
 		        }
 		        
 		        // Determine the winning player
@@ -108,29 +114,40 @@ public class Game {
     static void playNetworkGameAsClient(String id) {
 	    try {
 			Client networkClient = new Client("imcs.svcs.cs.pdx.edu","3589","ChiniMess","bbp");
-			networkClient.accept(id,'?');
-	
-	    	Board b = new Board('W'); // normal standard Board
+			char turn  = networkClient.accept(id,'?');
+			boolean localTurn = Board.WHITE;
+			Move m = null;
+	    	Board b = new Board(); // normal standard Board
 	        GameStatus status = GameStatus.GAME_RUNNING;
-	
+	       
+	        
+	        if (turn == 'W') {
+	        	localTurn = Board.WHITE;
+	        }
+	        else if (turn == 'B') {
+	        	localTurn= Board.BLACK;
+	        }
 	        Player localPlayer   = new RandomPlayer();
 	        
-	        while(status == GameStatus.GAME_RUNNING){
-	            Move m;
-	            
-	            if (b.getPlayerOnTurn() == Board.WHITE) {
-	            	m = new Move(networkClient.getMove());	           		            	
+	        while(status == GameStatus.GAME_RUNNING){        
+	            if (localTurn == b.getPlayerOnTurn()) {
+	            	m = localPlayer.chooseMove(b);
+	            	networkClient.sendMove(m.toString());	      		            	
 	            }
 	            else {  //if (b.getPlayerOnTurn() == Board.BLACK) 
-	            	m = localPlayer.chooseMove(b);   
-	            	networkClient.sendMove(m.toString());	
+	            	m = new Move(networkClient.getMove());	
 	            }		            
 	            b.executeMove(m);
 	            status = b.gameOver();
-	            System.out.println(b);
+	            /*System.out.println(b);
 	            System.out.println("picked Move:" + m);
 	            System.out.println("Score: " + b.calculateScore());
-	            b.setTurn(!b.getPlayerOnTurn());
+	            */
+	            
+	            System.out.println("local Board: \n");
+	            System.out.println(b);
+	            System.out.println("----------------------");
+	            System.out.println("network Board: \n");
 	        }
 	        
 	        // Determine the winning player
