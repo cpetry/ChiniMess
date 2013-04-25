@@ -108,7 +108,7 @@ public class MoveTest {
     	assertTrue(m.pathIsFree(board));
       	m = new Move("d5d2");
     	assertTrue(m.pathIsFree(board));
-       	m = new Move("b6b3"); //special Knight move
+       	m = new Move("b1b3"); //special Knight move
     	assertTrue(m.pathIsFree(board));
       	m = new Move("e5e3");
     	assertTrue(m.pathIsFree(board));	//end move on Y-axis
