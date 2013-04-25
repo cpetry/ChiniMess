@@ -23,6 +23,7 @@ public class Pawn extends Figure{
         return false;
     }
     
+    @Override
     public boolean canCapture(int dr, int dc){
         if (dr == 0 && dc == 0) // not moving at all
             return false;

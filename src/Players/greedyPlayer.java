@@ -20,7 +20,7 @@ public class GreedyPlayer extends Player {
             
             score = bTest.calculateScore();
             if (score > max_score){
-                System.out.println("better move :) ");
+                //System.out.println("better move :) ");
                 max_score = score;
                 bestMove = m;              
             }

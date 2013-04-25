@@ -19,10 +19,13 @@ public class NegamaxABPlayerTest {
                 + "..P..\n"
                 + "...p.\n"
                 + "....K\n";
-        Player p = new NegamaxABPlayer(3);
-        Move m = p.chooseMove(new Board(input));
+        Player p = new NegamaxABPlayer(2000);
+        p = new GreedyPlayer();
+        Board b = new Board(input);
+        //System.out.println(b.genMoves());
+        Move m = p.chooseMove(b);
         //System.out.println(m);
-        assertTrue(new Move("a6-b6").equals(m));
+        assertTrue(new Move("d2-e1").equals(m));
     }
 
 }

@@ -75,6 +75,27 @@ public class BoardTest{
 				assertTrue(b instanceof Bishop); //validate bishop_position
 			}
 		}
+		
+		String input = "1 B \n"
+                + ".....\n"
+                + ".....\n"
+                + "..r..\n"
+                + ".....\n"
+                + "...p.\n"
+                + ".....\n";
+		Board b = new Board(input);
+		Figure f = b.getFigureFromField(new Square("d2"));
+		Figure f2 = b.getFigureFromField(new Square("c4"));
+		assertTrue(f instanceof Pawn);
+		assertTrue(f2 instanceof Rook);
+		
+		b.setFigureToField(new Square("b5"), new Queen(true));
+        b.setFigureToField(new Square("a1"), new King(true));
+        Figure f3 = b.getFigureFromField(new Square("b5"));
+        Figure f4 = b.getFigureFromField(new Square("a1"));
+        assertTrue(f3 instanceof Queen);
+        assertTrue(f4 instanceof King);
+		
 	}
 	
 	
@@ -300,6 +321,43 @@ public class BoardTest{
 	    Board b = new Board(input);
 	    //System.out.println(b.genMoves());
 	    assertTrue("[c4-c3, c4-a4, c4-b4, c4-d4, c4-e4, c4-c5, c4-c6, a6-a5, a6-b5, a6-b6]".equals(b.genMoves().toString()));
+	    
+	    
+	    input = "1 B \n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + "..P..\n"
+                + "...b.\n"
+                + "....K\n";
+        
+        b = new Board(input);
+        //System.out.println(b.genMoves());
+        assertTrue("[d2-c1, d2-d1, d2-e1, d2-c2, d2-e2, d2-c3, d2-d3, d2-e3]".equals(b.genMoves().toString()));
+        
+        input = "1 B \n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + "..P..\n"
+                + "...p.\n"
+                + "....K\n";
+        
+        b = new Board(input);
+        System.out.println(b.genMoves());
+        assertTrue("[d2-d1, d2-e1]".equals(b.genMoves().toString()));
+        
+        input = "1 B \n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + "..P..\n"
+                + "...p.\n"
+                + "..Q.K\n";
+        
+        b = new Board(input);
+        System.out.println(b.genMoves());
+        assertTrue("[d2-d1, d2-e1, d2-c1]".equals(b.genMoves().toString()));
 	}
 	
 	@Test
