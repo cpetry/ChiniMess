@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import ChiniMess.Board;
 import ChiniMess.GameStatus;
 import ChiniMess.Move;
+import Figures.Figure;
 
 public class NegamaxABPlayer extends NegamaxPlayer{
 
@@ -53,11 +54,11 @@ public class NegamaxABPlayer extends NegamaxPlayer{
             int v = -this.INF;
             int a0 = -this.INF;
             for (Move m : moves){
+                Figure thrownFigure = this.do__move(state, m);
                 
-                Board next_state = new Board(state);
-                next_state.executeMove(m);
-                int v0 = Math.max(v, -negamax(next_state, d0, -this.INF, -a0));
+                int v0 = Math.max(v, -negamax(state, d0, -this.INF, -a0));
                 
+                this.undo__move(state, m, thrownFigure);
                 //next_state.executeMove(new Move(m.getTo(), m.getFrom()));
                 
                 a0 = Math.max(a0, v0);

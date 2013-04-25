@@ -295,7 +295,7 @@ public class BoardTest{
                 + "....K\n";
 	    
 	    Board b = new Board(input);
-	    System.out.println(b.genMoves());
+	    //System.out.println(b.genMoves());
 	    assertTrue("[! a1-b1, ! a1-a2, ! a1-b2, ! c3-c1, ! c3-c2, ! c3-a3, ! c3-b3, ! c3-d3, ! c3-e3, ! c3-c4]".equals(b.genMoves().toString()));
 	}
 	
