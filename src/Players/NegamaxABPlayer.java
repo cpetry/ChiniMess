@@ -34,14 +34,17 @@ public class NegamaxABPlayer extends NegamaxPlayer{
         int v = -this.INF;
         ArrayList<Move> moves = state.genMoves();
         for (Move m : moves){
-           Board next_state = new Board(state);
-           next_state.executeMove(m);
-           v = Math.max(v, -negamax(next_state, depth-1, -beta, -alpha));
            
-           //state.executeMove(new Move(m.getTo(), m.getFrom()));
+            Figure thrownFigure = null;
+            boolean pawn_transformed = false;
+            this.do__move(state, m, thrownFigure, pawn_transformed);
+            
+            v = Math.max(v, -negamax(state, depth-1, -beta, -alpha));
            
-           alpha = Math.max(alpha, v);
-           if (v>= beta)
+            this.undo__move(state, m, thrownFigure, pawn_transformed);
+           
+            alpha = Math.max(alpha, v);
+            if (v>= beta)
                return v;
         }
         return v;    }
