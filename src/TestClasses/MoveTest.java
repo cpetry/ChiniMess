@@ -156,18 +156,18 @@ public class MoveTest {
     	assertTrue(m.pathIsFree(board));
     	m = new Move("a2b2");
     	assertTrue(m.pathIsFree(board));
-    	m = new Move("a4e4");
+    	m = new Move("a3e3");
     	assertTrue(m.pathIsFree(board));
-      	m = new Move("d5c5");
+      	m = new Move("d2c2");
     	assertTrue(m.pathIsFree(board));
-      	m = new Move("d5b5");
+      	m = new Move("d2b2");
     	assertTrue(m.pathIsFree(board));
        
     	board = new Board();
     	
     	m = new Move("a1a2"); 			//move on Y-axis
     	assertFalse(m.pathIsFree(board));
-    	m = new Move("b1b3");
+    	m = new Move("b6b4");
     	assertFalse(m.pathIsFree(board));
     	m = new Move("a2a6");
     	assertFalse(m.pathIsFree(board));
@@ -175,7 +175,7 @@ public class MoveTest {
     	assertFalse(m.pathIsFree(board));
     	m = new Move("c5c1");
     	assertFalse(m.pathIsFree(board));
-    	m = new Move("d6d3");
+    	m = new Move("d1d4");
     	assertFalse(m.pathIsFree(board));
     	m = new Move("e1e6");
     	assertFalse(m.pathIsFree(board));
