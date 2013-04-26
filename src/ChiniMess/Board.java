@@ -465,7 +465,6 @@ public class Board implements Comparable<Board>{
                 Figure f = this.getFigureFromField(s);
                 
                 if (f != null){
-                    
                     if (f instanceof King){
                         if (f.getColor() == this.BLACK)
                             black_king_alive = true;
@@ -473,16 +472,16 @@ public class Board implements Comparable<Board>{
                             white_king_alive = true;
                     }
                     
-                    if (f.getColor() == this.BLACK)
+                    if (f.getColor() == this.BLACK){
                         black_score += f.getScore();
+                    }
                     else
                         white_score += f.getScore();
-                    
                 }
             }
         if (this.onMove == this.WHITE){
             if (!black_king_alive)	// black king dead
-                return 10001;
+                return 10000;
             else if (!white_king_alive) // white king dead
                 return -10000;
             else
@@ -490,7 +489,7 @@ public class Board implements Comparable<Board>{
         }
         else{
             if (!white_king_alive)
-                return 10001;
+                return 10000;
             else if (!black_king_alive)
                 return -10000;
             else
@@ -500,7 +499,7 @@ public class Board implements Comparable<Board>{
     
     public GameStatus gameOver(){
         boolean white_lives = false, black_lives = false;
-        if (this.moveNumber >= this.MAXMOVES)
+        if (this.moveNumber > this.MAXMOVES)
             return GameStatus.GAME_DRAW;
         for (int r = 0; r < 6; r++)
             for (int c = 0; c < 5; c++){
@@ -515,15 +514,18 @@ public class Board implements Comparable<Board>{
                         white_lives = true;
                 }
             }
+        //System.out.println(" Black king lives: " + black_lives);
+        //System.out.println(" white king lives: " + white_lives);
         
         if (black_lives && white_lives)
             return GameStatus.GAME_RUNNING;
-        else if (black_lives)
+        else if (black_lives && !white_lives)
             return GameStatus.GAME_BLACKWINS;
-        else if (white_lives)
+        else if (white_lives && !black_lives)
             return GameStatus.GAME_WHITEWINS;
-        else
+        else if (!white_lives && !black_lives)
             return GameStatus.GAME_DRAW;     // shouldn't be possible!
+        else return null;
     }
 	
 
@@ -556,6 +558,7 @@ public class Board implements Comparable<Board>{
 
     @Override
     public boolean equals(Object obj) {
+        
         if (this == obj)
             return true;
         if (obj == null)
@@ -563,6 +566,10 @@ public class Board implements Comparable<Board>{
         if (getClass() != obj.getClass())
             return false;
         Board other = (Board) obj;
+        if (this.getMoveNumber() != other.getMoveNumber())
+            return false;
+        if (this.getPlayerOnTurn() != other.getPlayerOnTurn())
+            return false;
         if (hash != other.hash)
             return false;
         return true;

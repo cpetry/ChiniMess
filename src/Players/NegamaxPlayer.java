@@ -41,14 +41,39 @@ public class NegamaxPlayer extends Player{
         for (Move m : moves){
             Figure thrownFigure = null;
             boolean pawn_transformed = false;
-            this.do__move(state, m, thrownFigure, pawn_transformed);
+            
+            //state = this.do__move(state, m, thrownFigure, pawn_transformed);
+            // do 
+            /////////
+            thrownFigure = state.getFigureFromField(m.getTo());
+            Figure movingFigure = state.getFigureFromField(m.getFrom());
+            state.executeMove(m);
+            Figure movedFigure = state.getFigureFromField(m.getTo());
+            if (movingFigure instanceof Pawn && movedFigure instanceof Queen) // Pawn changed into Queen
+                pawn_transformed = true;
+            else
+                pawn_transformed = false;
+            ///////////////
             
             if (state.gameOver() != GameStatus.GAME_RUNNING)
                 return -state.calculateScore();
             
             int value = -negamax(state, depth - 1);
             
-            this.undo__move(state, m, thrownFigure, pawn_transformed);
+            //state = this.undo__move(state, m, thrownFigure, pawn_transformed);
+            // undo
+            ///////////////
+            Move move = new Move(m.getTo(), m.getFrom());
+            state.executeMove(move);
+            
+            if (pawn_transformed)
+                state.setFigureToField(m.getFrom(), new Pawn(state.getFigureFromField(m.getFrom()).getColor()));
+            
+            if (state.getPlayerOnTurn() == Board.BLACK)
+                state.setMoveNumber(state.getMoveNumber() - 1);
+            state.setFigureToField(m.getTo(), thrownFigure);
+            ///////////////
+
 
             //System.out.println(state);
             
@@ -64,7 +89,7 @@ public class NegamaxPlayer extends Player{
         return best_value;
     }
     
-    public void do__move(Board b, Move m, Figure thrownFigure, boolean pawn_transformed){
+    public Board do__move(Board b, Move m, Figure thrownFigure, boolean pawn_transformed){
         thrownFigure = b.getFigureFromField(m.getTo());
         Figure movingFigure = b.getFigureFromField(m.getFrom());
         
@@ -75,16 +100,19 @@ public class NegamaxPlayer extends Player{
             pawn_transformed = true;
         else
             pawn_transformed = false;
+        return new Board(b);
     }
     
-    public void undo__move(Board b, Move m, Figure thrownFigure, boolean pawn_transformed){
-        b.executeMove(new Move(m.getTo(), m.getFrom()));
+    public Board undo__move(Board b, Move m, Figure thrownFigure, boolean pawn_transformed){
+        Move move = new Move(m.getTo(), m.getFrom());
+        b.executeMove(move);
         
         if (pawn_transformed)
             b.setFigureToField(m.getFrom(), new Pawn(b.getFigureFromField(m.getFrom()).getColor()));
         
         if (b.getPlayerOnTurn() == Board.BLACK)
-        	b.setMoveNumber(b.getMoveNumber() - 1);
+            b.setMoveNumber(b.getMoveNumber() - 1);
         b.setFigureToField(m.getTo(), thrownFigure);
+        return new Board(b);
     }
 }

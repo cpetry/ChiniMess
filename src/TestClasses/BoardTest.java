@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import ChiniMess.Board;
+import ChiniMess.GameStatus;
 import ChiniMess.Square;
 import Figures.*;
 
@@ -156,6 +157,7 @@ public class BoardTest{
                         + "PPPPP\n"
                         + "RNBQK";
 		assertTrue(dummyBoard.checkAndSetBoardFromInput(input));
+		assertTrue(dummyBoard.getPlayerOnTurn() == Board.BLACK); 
 		
 		// move is 0
 		input =   "0 B  \n"
@@ -319,6 +321,7 @@ public class BoardTest{
                 + ".....\n";
 	    
 	    Board b = new Board(input);
+	    assertTrue(b.getPlayerOnTurn() == Board.BLACK); 
 	    //System.out.println("genMovesTest: " + b.genMoves());
 	    assertTrue("[]".equals(b.genMoves().toString()));
 	    
@@ -361,6 +364,21 @@ public class BoardTest{
 	}
 	
 	@Test
+    public void boardConstructorTests(){
+        String input = "1 W \n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + "..Q..\n"
+                + "..k..\n"
+                + ".....\n";
+        
+        Board b = new Board(input);
+        Board copy = new Board(b);
+        assertTrue(copy.getPlayerOnTurn() == Board.WHITE);
+    }
+	
+	@Test
 	public void calculateScoreTest(){
 	    String input = "1 B \n"
                 + "k....\n"
@@ -371,6 +389,7 @@ public class BoardTest{
                 + "....K\n";
         
         Board b = new Board(input);
+        assertTrue(b.getPlayerOnTurn() == Board.BLACK); 
         assertTrue(b.calculateScore() == -900);
         
         input =   "1 B \n"
@@ -415,9 +434,63 @@ public class BoardTest{
                 + "....K\n";
         
         b = new Board(input);
+        assertTrue(b.getPlayerOnTurn() == Board.WHITE); 
         assertTrue(b.calculateScore() == 10000);   // black player loses
         
 	}
+	
+	@Test
+	public void gameOverTest(){
+	    String input = "1 B \n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + "..Q..\n"
+                + ".....\n"
+                + "....K\n";
+        
+        Board b = new Board(input);
+        assertTrue(b.gameOver() == GameStatus.GAME_WHITEWINS);
+        assertTrue(b.gameOver() != GameStatus.GAME_RUNNING);
+        
+        input = "1 W \n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + ".KQ..\n"
+                + ".....\n"
+                + ".....\n";
+        
+        b = new Board(input);
+        assertTrue(b.gameOver() == GameStatus.GAME_WHITEWINS);
+        assertTrue(b.gameOver() != GameStatus.GAME_RUNNING);
+        
+        input = "1 W \n"
+                + "k....\n"
+                + ".....\n"
+                + ".....\n"
+                + "..Q..\n"
+                + ".....\n"
+                + ".....\n";
+        
+        b = new Board(input);
+        assertTrue(b.gameOver() == GameStatus.GAME_BLACKWINS);
+        assertTrue(b.gameOver() != GameStatus.GAME_RUNNING);
+        
+        input = "1 W \n"
+                + ".....\n"
+                + ".....\n"
+                + ".....\n"
+                + "..Q..\n"
+                + "..k..\n"
+                + ".....\n";
+        
+        b = new Board(input);
+        assertTrue(b.gameOver() == GameStatus.GAME_BLACKWINS);
+        assertTrue(b.gameOver() != GameStatus.GAME_RUNNING);
+	}
+	
+	
 	
 	//helper_methods
 	public String generateValidInput() {
