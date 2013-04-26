@@ -74,36 +74,36 @@ public class NegamaxABPlayerTest {
         //System.out.println("chosen move: " + m);
         assertTrue(new Move("a1a6").equals(m));
         
-        input =   "1 W  \n"
-                + "....k\n"
+        input =   "1 B  \n"
+                + "....K\n"
                 + ".....\n"
-                + ".rQ..\n"
+                + "..q..\n"
+                + ".R...\n"
                 + ".....\n"
-                + ".....\n"
-                + "....K\n";
-        p = new NegamaxABPlayer(200);
+                + "....k\n";
+        p = new NegamaxABPlayer(500);
         b = new Board(input);
         
         m = p.chooseMove(b);
         
         //System.out.println(b.genMoves());
         //System.out.println("chosen move: " + m);
-        //assertTrue(new Move("c4e6").equals(m));
+        assertTrue(new Move("c4e6").equals(m));
         
         input =    "1 B \n"
-                + "...k.\n"
-                + "...Q.\n"
-                + "..r..\n"
+                + "...K.\n"
+                + "...q.\n"
+                + "..R..\n"
                 + ".....\n"
-                + ".P...\n"
-                + "....K\n";
-        p = new NegamaxABPlayer(200);
+                + ".p...\n"
+                + "....k\n";
+        p = new NegamaxABPlayer(500);
         b = new Board(input);
         m = p.chooseMove(b);
-        System.out.println("chosen move: " + m);
-        assertTrue(new Move("d6e6").equals(m));
+        //System.out.println("chosen move: " + m);
+        assertTrue(new Move("d5d6").equals(m));
         
-        input = "1 W \n"
+        input =   "1 B \n"
                 + "...k.\n"
                 + ".....\n"
                 + "..r..\n"
@@ -113,7 +113,7 @@ public class NegamaxABPlayerTest {
         p = new NegamaxABPlayer(1000);
         b = new Board(input);
         m = p.chooseMove(b);
-        //System.out.println("chosen move: " + m);
+        System.out.println("chosen move: " + m);
         assertTrue(new Move("d3-d6").equals(m));
         
         input =   "1 B  \n"

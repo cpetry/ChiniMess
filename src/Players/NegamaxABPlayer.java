@@ -51,17 +51,20 @@ public class NegamaxABPlayer extends NegamaxPlayer{
     private int negamax(Board state, int depth, int alpha, int beta){
     	
     	GameStatus game_status = state.gameOver();
-    	if (game_status != GameStatus.GAME_RUNNING || depth == 0){
+    	if (depth == 0){
+    	    return state.calculateScore();
+    	}
+    	if (game_status != GameStatus.GAME_RUNNING){
             if ((game_status == GameStatus.GAME_BLACKWINS && this.playerOnTurn == Board.BLACK)
              || (game_status == GameStatus.GAME_WHITEWINS && this.playerOnTurn == Board.WHITE)){
                 return state.calculateScore() + 100 - (this.start_depth - depth);
             }
             else if ((game_status == GameStatus.GAME_BLACKWINS && this.playerOnTurn == Board.WHITE)
                   || (game_status == GameStatus.GAME_WHITEWINS && this.playerOnTurn == Board.BLACK)){
-                return state.calculateScore() - 100 + (this.start_depth - depth);
+                return state.calculateScore() + 100 - (this.start_depth - depth);
             }
             else
-                return state.calculateScore() - 100 + (this.start_depth - depth);
+                return state.calculateScore() + 100 - (this.start_depth - depth);
         }
     	
         int v = -this.INF;
@@ -166,7 +169,7 @@ public class NegamaxABPlayer extends NegamaxPlayer{
                 }
                 else if ((status == GameStatus.GAME_BLACKWINS && this.playerOnTurn == Board.WHITE)
                       || (status == GameStatus.GAME_WHITEWINS && this.playerOnTurn == Board.BLACK)){
-                    v0 = start_board.calculateScore() - 100;
+                    v0 = start_board.calculateScore() + 100;
                     //System.out.println(v0);
                 }
                 else{
