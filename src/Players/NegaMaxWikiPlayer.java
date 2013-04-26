@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import ChiniMess.Board;
 import ChiniMess.Move;
+import Figures.Figure;
 
 public class NegaMaxWikiPlayer extends Player {
 	
 	private Move save = null;
 	private int depth = 4;
 	private ArrayList<Move> moeglich;
+	private Board board;
 	
 	public NegaMaxWikiPlayer(){
 	}
@@ -21,27 +23,33 @@ public class NegaMaxWikiPlayer extends Player {
 	
 	public Move chooseMove(Board b) {
 		
-
+		board = b;
 		moeglich = b.genMoves();
-		miniMax(depth, new Board(b));
+		miniMax(depth);
 		return save;
 	}
 	
-	private int miniMax(int depth, Board b){
+	private int miniMax(int depth){
 			
-		
+
 		if(depth == 0 || moeglich == null){
-			return b.calculateScore();
+			return board.calculateScore();
 	}
 		
 		int max = -INF;
-		moeglich = b.genMoves();
+		moeglich = board.genMoves();
 		
 		for(Move m: moeglich){
-			Board temp = new Board(b);
-			temp.executeMove(m);
-			int wert = depth * -miniMax(depth-1, temp);
+
+			Figure figure_from = board.getFigureFromField(m.getFrom());
+			Figure figure_to = board.getFigureFromField(m.getTo());
+			int movenumber = board.getMoveNumber();
+			boolean onmove = board.onMove;
+			doMove(m, movenumber, onmove);
 			
+			int wert = depth * -miniMax(depth-1);
+			
+			undoMove(m, figure_from, figure_to, onmove, movenumber);
 			if( wert > max){
 				max = wert;
 				if(depth == this.depth){
@@ -51,6 +59,19 @@ public class NegaMaxWikiPlayer extends Player {
 			}
 		}
 		return max;
+	}
+	
+	private void doMove(Move m, int movenumber, boolean color){
+		
+		board.executeMove(m);
+	}
+	
+	private void undoMove(Move m, Figure figure_from, Figure figure_to, boolean moveon, int movenumber){
+		
+		board.onMove = moveon;
+		board.setMoveNumber(movenumber);
+		board.setFigureToField(m.getFrom(), figure_from);
+		board.setFigureToField(m.getTo(), figure_to);
 	}
 }
 
