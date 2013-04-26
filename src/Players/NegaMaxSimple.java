@@ -6,17 +6,17 @@ import ChiniMess.Board;
 import ChiniMess.Move;
 import Figures.Figure;
 
-public class NegaMaxWikiPlayer extends Player {
+public class NegaMaxSimple extends Player {
 	
 	private Move save = null;
 	private int depth = 4;
-	private ArrayList<Move> moeglich;
+	private ArrayList<Move> move_list;
 	private Board board;
 	
-	public NegaMaxWikiPlayer(){
+	public NegaMaxSimple(){
 	}
 	
-	public NegaMaxWikiPlayer(int depth){
+	public NegaMaxSimple(int depth){
 		this.depth = depth;
 
 	}
@@ -24,7 +24,7 @@ public class NegaMaxWikiPlayer extends Player {
 	public Move chooseMove(Board b) {
 		
 		board = b;
-		moeglich = b.genMoves();
+		move_list = b.genMoves();
 		miniMax(depth);
 		return save;
 	}
@@ -32,14 +32,14 @@ public class NegaMaxWikiPlayer extends Player {
 	private int miniMax(int depth){
 			
 
-		if(depth == 0 || moeglich == null){
+		if(depth == 0 || move_list == null){
 			return board.calculateScore();
 	}
 		
 		int max = -INF;
-		moeglich = board.genMoves();
+		move_list = board.genMoves();
 		
-		for(Move m: moeglich){
+		for(Move m: move_list){
 
 			Figure figure_from = board.getFigureFromField(m.getFrom());
 			Figure figure_to = board.getFigureFromField(m.getTo());
@@ -47,11 +47,11 @@ public class NegaMaxWikiPlayer extends Player {
 			boolean onmove = board.onMove;
 			doMove(m, movenumber, onmove);
 			
-			int wert = depth * -miniMax(depth-1);
+			int value = depth * -miniMax(depth-1);
 			
 			undoMove(m, figure_from, figure_to, onmove, movenumber);
-			if( wert > max){
-				max = wert;
+			if( value > max){
+				max = value;
 				if(depth == this.depth){
 					save = m;
 			
@@ -75,21 +75,3 @@ public class NegaMaxWikiPlayer extends Player {
 	}
 }
 
-/*int miniMax(int spieler, int tiefe) {
-if (tiefe == 0 or keineZuegeMehr(spieler))
-   return bewerten(spieler);
-int maxWert = -unendlich;
-generiereMoeglicheZuege(spieler);
-while (noch Zug da) {
-   fuehreNaechstenZugAus();
-   int wert = -miniMax(-spieler, tiefe-1);
-   macheZugRueckgaengig();
-   if (wert > maxWert) {
-      maxWert = wert;
-      if (tiefe == anfangstiefe)
-         gespeicherterZug = Zug;
-   }
-}
-return maxWert;
-}
-*/

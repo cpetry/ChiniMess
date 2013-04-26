@@ -13,8 +13,8 @@ public class Game {
     public static void main(String[] args) {
     	//System.out.println(convertBlackMove(new Move("b6-c4")));
     	//playLocalGame();
-    	//playNetworkGameAsServer();
-    	playNetworkGameAsClient("6607");
+    	//playNetworkGameAsServer(new NegaMaxSimple(5));
+    	playNetworkGameAsClient("6896", new NegaMaxSimple(5));
     }  
     /**
      * @brief play ChiniMess local game
@@ -25,8 +25,8 @@ public class Game {
 	        GameStatus status = GameStatus.GAME_RUNNING;
 	        System.out.println(b);
 	        
-	        Player White_Player   = new HumanPlayer();
-	        Player Black_Player   = new HumanPlayer();
+	        Player White_Player   = new NegaMaxSimple(6);
+	        Player Black_Player   = new NegaMaxSimple(6);
 	        
 	        while(status == GameStatus.GAME_RUNNING){
 	            Move m;
@@ -58,21 +58,19 @@ public class Game {
     /**
      * @brief play ChiniMess network game
      */
-    public static void playNetworkGameAsServer() {
+    public static void playNetworkGameAsServer(Player localPlayer) {
 
     	try {
 	    		Client networkClient = new Client("imcs.svcs.cs.pdx.edu","3589","ChiniMess","bbp");
-	    		networkClient.offer('B');
+	    		networkClient.offer('W');
 
 		    	Board b = new Board('W'); // normal standard Board
 		        GameStatus status = GameStatus.GAME_RUNNING;
-
-		        Player localPlayer   = new NegamaxPlayer(5);
 		        
 		        while(status == GameStatus.GAME_RUNNING){
 		            Move m;
 		            
-		            if (b.getPlayerOnTurn() == Board.WHITE) {
+		            if (b.getPlayerOnTurn() == Board.BLACK) {
 		            	m = new Move(networkClient.getMove());	           		            	
 		            }
 		            else {  //if (b.getPlayerOnTurn() == Board.BLACK) 
@@ -111,7 +109,7 @@ public class Game {
         }
     	
     }
-    static void playNetworkGameAsClient(String id) {
+    static void playNetworkGameAsClient(String id, Player localPlayer) {
 	    try {
 			Client networkClient = new Client("imcs.svcs.cs.pdx.edu","3589","ChiniMess","bbp");
 			char turn  = networkClient.accept(id,'?');
@@ -127,7 +125,6 @@ public class Game {
 	        else if (turn == 'B') {
 	        	localTurn= Board.BLACK;
 	        }
-	        Player localPlayer   = new RandomPlayer();
 	        
 	        while(status == GameStatus.GAME_RUNNING){        
 	            if (localTurn == b.getPlayerOnTurn()) {
@@ -146,6 +143,7 @@ public class Game {
 	            
 	            System.out.println("local Board: \n");
 	            System.out.println(b);
+	            System.out.println(b.calculateScore());
 	            System.out.println("----------------------");
 	            System.out.println("network Board: \n");
 	        }

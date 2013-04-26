@@ -25,7 +25,7 @@ public class Board implements Comparable<Board>{
     private long hash; // hashmember for TTable
     
     private int moveNumber; 
-    private boolean onMove; 
+    public boolean onMove; 
     
     ArrayList<Figure> board = new ArrayList<Figure>();
 

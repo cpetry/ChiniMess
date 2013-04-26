@@ -28,6 +28,8 @@ public class NegamaxPlayer extends Player{
         return this.best_move;
     }
     
+    
+    
     private int negamax(Board state, int depth){
         
         // depth == 0 or game over

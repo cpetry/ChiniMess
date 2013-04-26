@@ -8,6 +8,7 @@ public class King extends Figure {
             this.figure = 'K';
         else
             this.figure = 'k';
+        this.score = 10000;
     }
 
     @Override
